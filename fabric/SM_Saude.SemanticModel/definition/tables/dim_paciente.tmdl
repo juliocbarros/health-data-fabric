@@ -1,0 +1,146 @@
+table dim_paciente
+	lineageTag: 6d3021f3-93da-4775-9683-1ead9645b638
+	sourceLineageTag: [Gold].[dim_paciente]
+
+	column sk_paciente
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 8e8fd9dd-82fb-40c7-b59c-f61818aa6cfd
+		sourceLineageTag: sk_paciente
+		summarizeBy: sum
+		sourceColumn: sk_paciente
+
+		annotation SummarizationSetBy = Automatic
+
+	column PAT_ID
+		dataType: string
+		lineageTag: 5ba1ea63-351a-4980-9b18-874ce111f340
+		sourceLineageTag: PAT_ID
+		summarizeBy: none
+		sourceColumn: PAT_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome
+		dataType: string
+		lineageTag: da47944a-4fb8-4fe2-a3c0-dc67157feb7e
+		sourceLineageTag: nome
+		summarizeBy: none
+		sourceColumn: nome
+
+		annotation SummarizationSetBy = Automatic
+
+	column genero
+		dataType: string
+		lineageTag: 0fc2f940-ca67-42bb-b15a-fded8110b043
+		sourceLineageTag: genero
+		summarizeBy: none
+		sourceColumn: genero
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_nascimento
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 29f774de-bdda-4ba1-aa6a-d17f02fb6aaf
+		sourceLineageTag: data_nascimento
+		summarizeBy: none
+		sourceColumn: data_nascimento
+
+		annotation SummarizationSetBy = Automatic
+
+	column idade
+		dataType: int64
+		formatString: 0
+		lineageTag: c25617fa-cf1e-469a-82c5-1ecc328ce85b
+		sourceLineageTag: idade
+		summarizeBy: none
+		sourceColumn: idade
+
+		annotation SummarizationSetBy = Automatic
+
+	column faixa_etaria
+		dataType: string
+		lineageTag: c6e6b759-3bea-4007-ad89-a02edf6959c7
+		sourceLineageTag: faixa_etaria
+		summarizeBy: none
+		sourceColumn: faixa_etaria
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo_sanguineo
+		dataType: string
+		lineageTag: 9523a5c9-7613-4a1d-a075-35856587011a
+		sourceLineageTag: tipo_sanguineo
+		summarizeBy: none
+		sourceColumn: tipo_sanguineo
+
+		annotation SummarizationSetBy = Automatic
+
+	column estado_civil
+		dataType: string
+		lineageTag: 74bf3599-5ef4-46bb-b235-dcfdf4c82599
+		sourceLineageTag: estado_civil
+		summarizeBy: none
+		sourceColumn: estado_civil
+
+		annotation SummarizationSetBy = Automatic
+
+	column uf_documento
+		dataType: string
+		lineageTag: 7eb07250-f57b-47ca-8961-42c30672264b
+		sourceLineageTag: uf_documento
+		summarizeBy: none
+		sourceColumn: uf_documento
+
+		annotation SummarizationSetBy = Automatic
+
+	column qtd_apolices
+		dataType: int64
+		formatString: 0
+		lineageTag: 29d5e4f1-923b-42fb-8018-2d28cc8d5e18
+		sourceLineageTag: qtd_apolices
+		summarizeBy: sum
+		sourceColumn: qtd_apolices
+
+		annotation SummarizationSetBy = Automatic
+
+	column possui_seguro_ativo
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 1a66a197-3f81-4454-87d0-ccc6c0b9264b
+		sourceLineageTag: possui_seguro_ativo
+		summarizeBy: none
+		sourceColumn: possui_seguro_ativo
+
+		annotation SummarizationSetBy = Automatic
+
+	column qtd_alergias
+		dataType: int64
+		formatString: 0
+		lineageTag: 99bdacdd-ec0f-4314-b8e1-a935fbb5b561
+		sourceLineageTag: qtd_alergias
+		summarizeBy: sum
+		sourceColumn: qtd_alergias
+
+		annotation SummarizationSetBy = Automatic
+
+	column _data_carga_gold
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 4504ba14-1b18-4af2-81c3-e2562ac93200
+		sourceLineageTag: _data_carga_gold
+		summarizeBy: none
+		sourceColumn: _data_carga_gold
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_paciente = entity
+		mode: directLake
+		source
+			entityName: dim_paciente
+			schemaName: Gold
+			expressionSource: 'DirectLake - LK_Healt_Data_Project'
+

@@ -1,0 +1,161 @@
+table fato_prescricao
+	lineageTag: bace43a6-0e78-4ccb-ab29-8ff3137a1af4
+	sourceLineageTag: [Gold].[fato_prescricao]
+
+	measure Prescrições = COUNTROWS ( fato_prescricao )
+		formatString: #,0
+		displayFolder: Clínico
+		lineageTag: f6bb80f7-7425-42fd-9433-3c8d012a66c8
+
+	/// Estimativa: quantidade x custo da embalagem.
+	measure 'Custo Estimado de Medicamentos' = SUM ( fato_prescricao[custo_estimado] )
+		formatString: #,0.00
+		displayFolder: Clínico
+		lineageTag: c254ac72-8f51-4a36-a77d-b7b1a8786dc3
+
+	measure 'Medicamentos Prescritos (distintos)' = DISTINCTCOUNT ( fato_prescricao[sk_medicamento] )
+		formatString: #,0
+		displayFolder: Clínico
+		lineageTag: 8907afb5-4e29-47a2-9f5c-80ceed4b8eea
+
+	column sk_visita
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 549c01b4-2004-4272-a4a9-ed0ac2c46fb2
+		sourceLineageTag: sk_visita
+		summarizeBy: sum
+		sourceColumn: sk_visita
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_visita
+		dataType: string
+		lineageTag: 98d1cc18-9e79-4435-9e11-f056e6ad37dc
+		sourceLineageTag: num_visita
+		summarizeBy: none
+		sourceColumn: num_visita
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_paciente
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 88ac9aa7-5901-4b37-8b98-d20757f1d406
+		sourceLineageTag: sk_paciente
+		summarizeBy: sum
+		sourceColumn: sk_paciente
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_medicamento
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f7e16e35-6e17-4cd3-a766-569ceefe054a
+		sourceLineageTag: sk_medicamento
+		summarizeBy: sum
+		sourceColumn: sk_medicamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: d03f13a9-b7e2-4771-8d42-d80db129ee97
+		sourceLineageTag: data_key
+		summarizeBy: sum
+		sourceColumn: data_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column sequencia
+		dataType: int64
+		formatString: 0
+		lineageTag: bbfaf429-4280-46d6-8c5a-f5f1fd1081b4
+		sourceLineageTag: sequencia
+		summarizeBy: sum
+		sourceColumn: sequencia
+
+		annotation SummarizationSetBy = Automatic
+
+	column quantidade
+		dataType: double
+		lineageTag: 69a95049-fab7-40e3-8c7f-b7d5c38a2905
+		sourceLineageTag: quantidade
+		summarizeBy: sum
+		sourceColumn: quantidade
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column posologia
+		dataType: string
+		lineageTag: fd5137bb-93c9-4cd7-a12e-b401943d6aea
+		sourceLineageTag: posologia
+		summarizeBy: none
+		sourceColumn: posologia
+
+		annotation SummarizationSetBy = Automatic
+
+	column duracao
+		dataType: string
+		lineageTag: 40b37eaa-cb35-4ccd-bc3c-ba0182ebaa0f
+		sourceLineageTag: duracao
+		summarizeBy: none
+		sourceColumn: duracao
+
+		annotation SummarizationSetBy = Automatic
+
+	column via
+		dataType: string
+		lineageTag: 0202da22-3aa0-46de-9bd5-7000cc1ccc9b
+		sourceLineageTag: via
+		summarizeBy: none
+		sourceColumn: via
+
+		annotation SummarizationSetBy = Automatic
+
+	column unidades_por_dose
+		dataType: double
+		lineageTag: 3ada1171-07d5-46ba-8da1-8b30b40c730d
+		sourceLineageTag: unidades_por_dose
+		summarizeBy: sum
+		sourceColumn: unidades_por_dose
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column custo_estimado
+		dataType: double
+		lineageTag: 9699e015-dabd-45f6-a418-8a5a7acd977e
+		sourceLineageTag: custo_estimado
+		summarizeBy: sum
+		sourceColumn: custo_estimado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column _data_carga_gold
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 2d8824bf-f7aa-41be-ade6-3978b79d9e95
+		sourceLineageTag: _data_carga_gold
+		summarizeBy: none
+		sourceColumn: _data_carga_gold
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fato_prescricao = entity
+		mode: directLake
+		source
+			entityName: fato_prescricao
+			schemaName: Gold
+			expressionSource: 'DirectLake - LK_Healt_Data_Project'
+

@@ -1,0 +1,78 @@
+table dim_fornecedor
+	lineageTag: 99782850-96ad-4bad-9040-21e3046cfe41
+	sourceLineageTag: [Gold].[dim_fornecedor]
+
+	column sk_fornecedor
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 527bc65e-04ef-4c7d-833b-51850b1c3ac4
+		sourceLineageTag: sk_fornecedor
+		summarizeBy: sum
+		sourceColumn: sk_fornecedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column VEN_ACC
+		dataType: string
+		lineageTag: ac18d97c-db00-48dd-90b3-0b29d0d2e4f0
+		sourceLineageTag: VEN_ACC
+		summarizeBy: none
+		sourceColumn: VEN_ACC
+
+		annotation SummarizationSetBy = Automatic
+
+	column fornecedor
+		dataType: string
+		lineageTag: ab7e0297-423e-4925-84e6-6df538d7e6d2
+		sourceLineageTag: fornecedor
+		summarizeBy: none
+		sourceColumn: fornecedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo
+		dataType: string
+		lineageTag: d3c519f8-28ee-4204-89c3-b81443cc8086
+		sourceLineageTag: tipo
+		summarizeBy: none
+		sourceColumn: tipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column pais
+		dataType: string
+		lineageTag: 751be144-e84c-4514-9cab-025874228860
+		sourceLineageTag: pais
+		summarizeBy: none
+		sourceColumn: pais
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: f806c4f5-75b5-43cf-8e45-628690c57e73
+		sourceLineageTag: status
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column _data_carga_gold
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: b139427f-f052-4c10-8043-730d261f81ba
+		sourceLineageTag: _data_carga_gold
+		summarizeBy: none
+		sourceColumn: _data_carga_gold
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_fornecedor = entity
+		mode: directLake
+		source
+			entityName: dim_fornecedor
+			schemaName: Gold
+			expressionSource: 'DirectLake - LK_Healt_Data_Project'
+

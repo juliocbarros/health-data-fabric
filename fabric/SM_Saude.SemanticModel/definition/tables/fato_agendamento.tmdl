@@ -1,0 +1,185 @@
+table fato_agendamento
+	lineageTag: efcc92c3-1549-4160-b0eb-6eb54cca73e5
+	sourceLineageTag: [Gold].[fato_agendamento]
+
+	/// Total de agendamentos.
+	measure Agendamentos = COUNTROWS ( fato_agendamento )
+		formatString: #,0
+		displayFolder: Agendamentos
+		lineageTag: 2953d7a4-3236-4e34-8010-88ed313e97e7
+
+	/// Status Completed.
+	measure 'Agendamentos Realizados' = SUM ( fato_agendamento[compareceu] )
+		formatString: #,0
+		displayFolder: Agendamentos
+		lineageTag: e5c31a72-cf4e-4160-9fab-03649c77e614
+
+	/// Status No show.
+	measure Faltas = SUM ( fato_agendamento[faltou] )
+		formatString: #,0
+		displayFolder: Agendamentos
+		lineageTag: ac461fc1-e4f1-4a6f-b7be-790859f51a2f
+
+	/// Status Cancelled.
+	measure Cancelamentos = SUM ( fato_agendamento[cancelado] )
+		formatString: #,0
+		displayFolder: Agendamentos
+		lineageTag: 55dd8b4f-661d-4253-8a1c-02c0699d5599
+
+	/// Realizados / (realizados + faltas). Ignora futuros e cancelados.
+	measure 'Taxa de Comparecimento' = DIVIDE ( [Agendamentos Realizados], [Agendamentos Realizados] + [Faltas] )
+		formatString: 0.0%
+		displayFolder: Agendamentos
+		lineageTag: 596712ac-d55a-4c6b-a582-6c875ba84fd8
+
+	measure 'Taxa de Faltas' = DIVIDE ( [Faltas], [Agendamentos Realizados] + [Faltas] )
+		formatString: 0.0%
+		displayFolder: Agendamentos
+		lineageTag: 49aa8547-e31b-48e5-be16-6f46d47f7390
+
+	/// Cancelados / agendamentos já passados.
+	measure 'Taxa de Cancelamento' = DIVIDE ( [Cancelamentos], CALCULATE ( [Agendamentos], fato_agendamento[status] <> "In Future" ) )
+		formatString: 0.0%
+		displayFolder: Agendamentos
+		lineageTag: 24c1d8e9-5a48-456f-a9d9-67730737331f
+
+	measure 'Agendamentos Futuros' = CALCULATE ( [Agendamentos], fato_agendamento[status] = "In Future" )
+		formatString: #,0
+		displayFolder: Agendamentos
+		lineageTag: 5bbd2bc7-9242-4ab8-a8b8-e848be5b9897
+
+	/// Usa a relação inativa; para analisar por quem agendou.
+	measure 'Agendamentos Feitos pelo Atendente' = CALCULATE ( [Agendamentos], USERELATIONSHIP ( fato_agendamento[sk_atendente], dim_funcionario[sk_funcionario] ) )
+		formatString: #,0
+		displayFolder: Agendamentos
+		lineageTag: ad51c90d-fbe4-4116-991b-3ca89f3846ca
+
+	column num_agendamento
+		dataType: string
+		lineageTag: 1c5dfbbd-c921-4c9a-9ec8-b0dfbc261a8d
+		sourceLineageTag: num_agendamento
+		summarizeBy: none
+		sourceColumn: num_agendamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_paciente
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7ad0ce5c-a1b1-4ad8-8574-59cdb6912ce2
+		sourceLineageTag: sk_paciente
+		summarizeBy: sum
+		sourceColumn: sk_paciente
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_medico
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: aed5b767-3aae-4f73-9867-ebbe47f78592
+		sourceLineageTag: sk_medico
+		summarizeBy: sum
+		sourceColumn: sk_medico
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_atendente
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f746b71d-98f2-412f-a2f0-17d0f9961d4a
+		sourceLineageTag: sk_atendente
+		summarizeBy: sum
+		sourceColumn: sk_atendente
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_agendamento_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 00bf3d0e-69ca-4548-939d-43c3dc5ccfdf
+		sourceLineageTag: data_agendamento_key
+		summarizeBy: sum
+		sourceColumn: data_agendamento_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_hora_agendamento
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: f149cd8c-f6da-4e07-bc57-e67fcefcf342
+		sourceLineageTag: data_hora_agendamento
+		summarizeBy: none
+		sourceColumn: data_hora_agendamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo
+		dataType: string
+		lineageTag: 76e0dce0-8c29-42fa-8671-7a25cbe0ce1b
+		sourceLineageTag: tipo
+		summarizeBy: none
+		sourceColumn: tipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 23f34c5f-eeda-430f-b158-7adc35c7f38e
+		sourceLineageTag: status
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column compareceu
+		dataType: int64
+		formatString: 0
+		lineageTag: d93c3e88-5f2c-4b0f-88b0-c1f1379e96c9
+		sourceLineageTag: compareceu
+		summarizeBy: sum
+		sourceColumn: compareceu
+
+		annotation SummarizationSetBy = Automatic
+
+	column cancelado
+		dataType: int64
+		formatString: 0
+		lineageTag: 30bf1c49-a6af-4762-8039-25490c09a137
+		sourceLineageTag: cancelado
+		summarizeBy: sum
+		sourceColumn: cancelado
+
+		annotation SummarizationSetBy = Automatic
+
+	column faltou
+		dataType: int64
+		formatString: 0
+		lineageTag: f3712066-ce02-4f10-b92c-ac5d619298bf
+		sourceLineageTag: faltou
+		summarizeBy: sum
+		sourceColumn: faltou
+
+		annotation SummarizationSetBy = Automatic
+
+	column _data_carga_gold
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: c0a50a81-717e-40d3-9535-7003af76de59
+		sourceLineageTag: _data_carga_gold
+		summarizeBy: none
+		sourceColumn: _data_carga_gold
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fato_agendamento = entity
+		mode: directLake
+		source
+			entityName: fato_agendamento
+			schemaName: Gold
+			expressionSource: 'DirectLake - LK_Healt_Data_Project'
+

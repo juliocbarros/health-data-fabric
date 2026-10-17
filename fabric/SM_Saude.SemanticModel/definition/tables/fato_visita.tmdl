@@ -1,0 +1,206 @@
+table fato_visita
+	lineageTag: 9c3336dd-4a93-4ceb-a277-fe795dc34f11
+	sourceLineageTag: [Gold].[fato_visita]
+
+	/// Por data de entrada.
+	measure Visitas = COUNTROWS ( fato_visita )
+		formatString: #,0
+		displayFolder: Visitas
+		lineageTag: 468c4a8e-ad8c-4c64-9ec6-c207e6faf814
+
+	measure 'Pacientes Atendidos' = DISTINCTCOUNT ( fato_visita[sk_paciente] )
+		formatString: #,0
+		displayFolder: Visitas
+		lineageTag: 68e7e988-bb62-4226-a9c4-c282212bfe56
+
+	measure 'Permanência Média (dias)' = AVERAGE ( fato_visita[permanencia_dias] )
+		formatString: #,0.0
+		displayFolder: Visitas
+		lineageTag: 664e92e8-598a-47ec-a663-94a93db14c95
+
+	measure 'Visitas Internadas' = CALCULATE ( [Visitas], fato_visita[status] = "Admitted" )
+		formatString: #,0
+		displayFolder: Visitas
+		lineageTag: f841cd85-1fc7-40f0-9376-414674f27db6
+
+	measure 'Visitas com Retorno' = CALCULATE ( [Visitas], fato_visita[status] = "Need Follow-Up" )
+		formatString: #,0
+		displayFolder: Visitas
+		lineageTag: e3bea4bc-3a5e-4fee-a250-20574ca7059a
+
+	/// Visitas que vieram de agendamento.
+	measure '% Visitas Agendadas' = DIVIDE ( CALCULATE ( [Visitas], fato_visita[origem] = "AGENDAMENTO" ), [Visitas] )
+		formatString: 0.0%
+		displayFolder: Visitas
+		lineageTag: 0c985dde-1055-47a4-9c06-eeaf2944d8c2
+
+	measure 'Visitas por Paciente' = DIVIDE ( [Visitas], [Pacientes Atendidos] )
+		formatString: #,0.00
+		displayFolder: Visitas
+		lineageTag: 7137d043-ca8a-4645-b94e-5850fee8494e
+
+	/// Conta pela data de saída (relação inativa).
+	measure 'Altas por Data de Saída' = CALCULATE ( [Visitas], USERELATIONSHIP ( fato_visita[data_saida_key], dim_calendario[data_key] ) )
+		formatString: #,0
+		displayFolder: Visitas
+		lineageTag: 37be026f-cf29-4e9f-8790-8d74b19de360
+
+	column sk_visita
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 38580c6b-2adf-4e27-a8aa-efb0a3de981c
+		sourceLineageTag: sk_visita
+		summarizeBy: sum
+		sourceColumn: sk_visita
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_visita
+		dataType: string
+		lineageTag: 69ac8818-5322-4438-bb56-a7232a01fd72
+		sourceLineageTag: num_visita
+		summarizeBy: none
+		sourceColumn: num_visita
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_paciente
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f79d358b-9da3-489c-b51a-94424a1dd0c3
+		sourceLineageTag: sk_paciente
+		summarizeBy: sum
+		sourceColumn: sk_paciente
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_sala
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: ae5c900a-9cd7-4e19-839f-64d942ca4a7c
+		sourceLineageTag: sk_sala
+		summarizeBy: sum
+		sourceColumn: sk_sala
+
+		annotation SummarizationSetBy = Automatic
+
+	column equipe_medica
+		dataType: string
+		lineageTag: 50ad4b65-6b99-4811-8116-237d6a0937ff
+		sourceLineageTag: equipe_medica
+		summarizeBy: none
+		sourceColumn: equipe_medica
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_entrada_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: f6fd90c6-4533-466b-8ed8-fd837e2a7400
+		sourceLineageTag: data_entrada_key
+		summarizeBy: sum
+		sourceColumn: data_entrada_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_saida_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: dc80d22b-4ac6-46a6-bb8e-ea94d6443691
+		sourceLineageTag: data_saida_key
+		summarizeBy: sum
+		sourceColumn: data_saida_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_hora_entrada
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: decae685-0c18-47c0-b42c-7290f5b942f7
+		sourceLineageTag: data_hora_entrada
+		summarizeBy: none
+		sourceColumn: data_hora_entrada
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_hora_saida
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: d7e3b972-86bc-42e3-87e1-1261e3e66ef3
+		sourceLineageTag: data_hora_saida
+		summarizeBy: none
+		sourceColumn: data_hora_saida
+
+		annotation SummarizationSetBy = Automatic
+
+	column permanencia_dias
+		dataType: double
+		lineageTag: 01ba9c02-c1cd-4bd1-92fa-36de4ed4d378
+		sourceLineageTag: permanencia_dias
+		summarizeBy: sum
+		sourceColumn: permanencia_dias
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column tipo
+		dataType: string
+		lineageTag: b0d0d3a2-ed65-4ed6-bd89-89986f2812f5
+		sourceLineageTag: tipo
+		summarizeBy: none
+		sourceColumn: tipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 37ceb6df-c4ef-4a74-9582-74052c13504f
+		sourceLineageTag: status
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column origem
+		dataType: string
+		lineageTag: 1222c691-d5b5-4636-b069-cf13698b1d56
+		sourceLineageTag: origem
+		summarizeBy: none
+		sourceColumn: origem
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_visita_repetido
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b2a6a105-1bda-4d1b-808e-6c0cddf849f3
+		sourceLineageTag: num_visita_repetido
+		summarizeBy: none
+		sourceColumn: num_visita_repetido
+
+		annotation SummarizationSetBy = Automatic
+
+	column _data_carga_gold
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 10c6d9ac-d82f-4a40-ba25-3a02efee5bcc
+		sourceLineageTag: _data_carga_gold
+		summarizeBy: none
+		sourceColumn: _data_carga_gold
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fato_visita = entity
+		mode: directLake
+		source
+			entityName: fato_visita
+			schemaName: Gold
+			expressionSource: 'DirectLake - LK_Healt_Data_Project'
+

@@ -1,0 +1,116 @@
+relationship fato_agendamento_sk_paciente_dim_paciente_sk_paciente
+	fromColumn: fato_agendamento.sk_paciente
+	toColumn: dim_paciente.sk_paciente
+
+relationship fato_agendamento_sk_medico_dim_funcionario_sk_funcionario
+	fromColumn: fato_agendamento.sk_medico
+	toColumn: dim_funcionario.sk_funcionario
+
+relationship fato_agendamento_sk_atendente_dim_funcionario_sk_funcionario
+	isActive: false
+	fromColumn: fato_agendamento.sk_atendente
+	toColumn: dim_funcionario.sk_funcionario
+
+relationship fato_agendamento_data_agendamento_key_dim_calendario_data_key
+	fromColumn: fato_agendamento.data_agendamento_key
+	toColumn: dim_calendario.data_key
+
+relationship fato_visita_sk_paciente_dim_paciente_sk_paciente
+	fromColumn: fato_visita.sk_paciente
+	toColumn: dim_paciente.sk_paciente
+
+relationship fato_visita_sk_sala_dim_sala_sk_sala
+	fromColumn: fato_visita.sk_sala
+	toColumn: dim_sala.sk_sala
+
+relationship fato_visita_data_entrada_key_dim_calendario_data_key
+	fromColumn: fato_visita.data_entrada_key
+	toColumn: dim_calendario.data_key
+
+relationship fato_visita_data_saida_key_dim_calendario_data_key
+	isActive: false
+	fromColumn: fato_visita.data_saida_key
+	toColumn: dim_calendario.data_key
+
+relationship fato_diagnostico_sk_paciente_dim_paciente_sk_paciente
+	fromColumn: fato_diagnostico.sk_paciente
+	toColumn: dim_paciente.sk_paciente
+
+relationship fato_diagnostico_sk_sala_dim_sala_sk_sala
+	fromColumn: fato_diagnostico.sk_sala
+	toColumn: dim_sala.sk_sala
+
+relationship fato_diagnostico_data_key_dim_calendario_data_key
+	fromColumn: fato_diagnostico.data_key
+	toColumn: dim_calendario.data_key
+
+relationship fato_tratamento_sk_paciente_dim_paciente_sk_paciente
+	fromColumn: fato_tratamento.sk_paciente
+	toColumn: dim_paciente.sk_paciente
+
+relationship fato_tratamento_data_key_dim_calendario_data_key
+	fromColumn: fato_tratamento.data_key
+	toColumn: dim_calendario.data_key
+
+relationship fato_prescricao_sk_paciente_dim_paciente_sk_paciente
+	fromColumn: fato_prescricao.sk_paciente
+	toColumn: dim_paciente.sk_paciente
+
+relationship fato_prescricao_sk_medicamento_dim_medicamento_sk_medicamento
+	fromColumn: fato_prescricao.sk_medicamento
+	toColumn: dim_medicamento.sk_medicamento
+
+relationship fato_prescricao_data_key_dim_calendario_data_key
+	fromColumn: fato_prescricao.data_key
+	toColumn: dim_calendario.data_key
+
+relationship fato_faturamento_sk_paciente_dim_paciente_sk_paciente
+	fromColumn: fato_faturamento.sk_paciente
+	toColumn: dim_paciente.sk_paciente
+
+relationship fato_faturamento_data_emissao_key_dim_calendario_data_key
+	fromColumn: fato_faturamento.data_emissao_key
+	toColumn: dim_calendario.data_key
+
+relationship fato_pagamento_sk_paciente_dim_paciente_sk_paciente
+	fromColumn: fato_pagamento.sk_paciente
+	toColumn: dim_paciente.sk_paciente
+
+relationship fato_pagamento_data_pagamento_key_dim_calendario_data_key
+	fromColumn: fato_pagamento.data_pagamento_key
+	toColumn: dim_calendario.data_key
+
+relationship fato_fornecimento_sk_material_dim_material_sk_material
+	fromColumn: fato_fornecimento.sk_material
+	toColumn: dim_material.sk_material
+
+relationship fato_fornecimento_sk_fornecedor_dim_fornecedor_sk_fornecedor
+	fromColumn: fato_fornecimento.sk_fornecedor
+	toColumn: dim_fornecedor.sk_fornecedor
+
+relationship fato_fornecimento_sk_recebedor_dim_funcionario_sk_funcionario
+	fromColumn: fato_fornecimento.sk_recebedor
+	toColumn: dim_funcionario.sk_funcionario
+
+relationship fato_fornecimento_data_recebimento_key_dim_calendario_data_key
+	fromColumn: fato_fornecimento.data_recebimento_key
+	toColumn: dim_calendario.data_key
+
+relationship fato_fornecimento_data_fabricacao_key_dim_calendario_data_key
+	isActive: false
+	fromColumn: fato_fornecimento.data_fabricacao_key
+	toColumn: dim_calendario.data_key
+
+relationship fato_fornecimento_data_conferencia_key_dim_calendario_data_key
+	isActive: false
+	fromColumn: fato_fornecimento.data_conferencia_key
+	toColumn: dim_calendario.data_key
+
+relationship fato_estoque_mensal_sk_medicamento_dim_medicamento_sk_medicamento
+	fromColumn: fato_estoque_mensal.sk_medicamento
+	toColumn: dim_medicamento.sk_medicamento
+
+relationship fato_estoque_mensal_mes_key_dim_calendario_data_key
+	fromColumn: fato_estoque_mensal.mes_key
+	toColumn: dim_calendario.data_key
+

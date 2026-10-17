@@ -1,0 +1,32 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["DirectLake - LK_Healt_Data_Project"]
+
+annotation PBI_ProTooling = ["DirectLakeOnOneLakeInWeb","MCP-PBIModeling"]
+
+ref table dim_calendario
+ref table dim_departamento
+ref table dim_fornecedor
+ref table dim_funcionario
+ref table dim_material
+ref table dim_medicamento
+ref table dim_paciente
+ref table dim_sala
+ref table fato_agendamento
+ref table fato_diagnostico
+ref table fato_estoque_mensal
+ref table fato_faturamento
+ref table fato_fornecimento
+ref table fato_pagamento
+ref table fato_prescricao
+ref table fato_tratamento
+ref table fato_visita
+

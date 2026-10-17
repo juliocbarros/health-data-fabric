@@ -1,0 +1,119 @@
+table dim_funcionario
+	lineageTag: 45433c1d-0a53-4528-bc74-2917957d678b
+	sourceLineageTag: [Gold].[dim_funcionario]
+
+	column sk_funcionario
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 44c0f0ff-590f-4c47-b93d-b7aee77fb713
+		sourceLineageTag: sk_funcionario
+		summarizeBy: sum
+		sourceColumn: sk_funcionario
+
+		annotation SummarizationSetBy = Automatic
+
+	column STF_ID
+		dataType: string
+		lineageTag: 34a62f3b-30e2-4177-9cf1-c88dcf9ad81d
+		sourceLineageTag: STF_ID
+		summarizeBy: none
+		sourceColumn: STF_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column nome
+		dataType: string
+		lineageTag: ae69e387-a398-4e5c-8f61-5effbdef3f1b
+		sourceLineageTag: nome
+		summarizeBy: none
+		sourceColumn: nome
+
+		annotation SummarizationSetBy = Automatic
+
+	column genero
+		dataType: string
+		lineageTag: f4ba1e6c-cf65-49f8-bcd2-bb5a9ab9f6e1
+		sourceLineageTag: genero
+		summarizeBy: none
+		sourceColumn: genero
+
+		annotation SummarizationSetBy = Automatic
+
+	column cargo
+		dataType: string
+		lineageTag: 58071c45-f6ec-4dd1-ba7a-371b52cae754
+		sourceLineageTag: cargo
+		summarizeBy: none
+		sourceColumn: cargo
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_departamento
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c0bc4687-6804-48ae-b313-88ff7221fe1b
+		sourceLineageTag: sk_departamento
+		summarizeBy: sum
+		sourceColumn: sk_departamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column departamento
+		dataType: string
+		lineageTag: 705a4af3-8dab-4a1b-afe3-e09bf42889c3
+		sourceLineageTag: departamento
+		summarizeBy: none
+		sourceColumn: departamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column situacao
+		dataType: string
+		lineageTag: aec89a76-639a-4122-b5e0-f849a0af9757
+		sourceLineageTag: situacao
+		summarizeBy: none
+		sourceColumn: situacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_contratacao
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 7ba3b6e0-fa5a-410b-9551-2adf63892a77
+		sourceLineageTag: data_contratacao
+		summarizeBy: none
+		sourceColumn: data_contratacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column salario_anual
+		dataType: double
+		lineageTag: 745ce2c1-86cb-4819-9a26-f7358a378cfe
+		sourceLineageTag: salario_anual
+		summarizeBy: sum
+		sourceColumn: salario_anual
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column _data_carga_gold
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 388d1a80-429a-4b38-9f32-39b7a1e12b9f
+		sourceLineageTag: _data_carga_gold
+		summarizeBy: none
+		sourceColumn: _data_carga_gold
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_funcionario = entity
+		mode: directLake
+		source
+			entityName: dim_funcionario
+			schemaName: Gold
+			expressionSource: 'DirectLake - LK_Healt_Data_Project'
+

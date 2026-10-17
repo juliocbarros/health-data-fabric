@@ -1,0 +1,254 @@
+table fato_fornecimento
+	lineageTag: bbcbb814-1c0b-4308-afea-df5ae7e48c87
+	sourceLineageTag: [Gold].[fato_fornecimento]
+
+	measure 'Lotes Recebidos' = COUNTROWS ( fato_fornecimento )
+		formatString: #,0
+		displayFolder: Suprimentos
+		lineageTag: 608d8a5d-4899-4533-8a0a-109947b2e07f
+
+	/// Custo total informado nos pagamentos ao fornecedor.
+	measure 'Custo dos Fornecimentos' = SUM ( fato_fornecimento[custo_total] )
+		formatString: #,0.00
+		displayFolder: Suprimentos
+		lineageTag: 4bc482c5-4d63-4202-ab5e-d104d4bd0fef
+
+	measure 'Valor Pago a Fornecedores' = SUM ( fato_fornecimento[valor_pago] )
+		formatString: #,0.00
+		displayFolder: Suprimentos
+		lineageTag: 11d8e3c3-3028-4312-8f75-54a4f61eabcc
+
+	measure 'Saldo a Pagar a Fornecedores' = SUM ( fato_fornecimento[saldo_a_pagar] )
+		formatString: #,0.00
+		displayFolder: Suprimentos
+		lineageTag: 0d1a6042-78bc-42e8-a61d-5ca55940b0fb
+
+	/// Quantidade fornecida que não foi recebida.
+	measure '% Divergência no Recebimento' = DIVIDE ( SUM ( fato_fornecimento[qtd_divergente] ), SUM ( fato_fornecimento[qtd_fornecida] ) )
+		formatString: 0.0%
+		displayFolder: Suprimentos
+		lineageTag: 44301f8c-6501-4849-b137-670685abe102
+
+	measure 'Dias Médios até Conferência' = AVERAGE ( fato_fornecimento[dias_ate_conferencia] )
+		formatString: #,0.0
+		displayFolder: Suprimentos
+		lineageTag: 1ea53711-eef7-4e05-b384-8689779f554d
+
+	column num_fornecimento
+		dataType: string
+		lineageTag: ae46f498-5535-454d-8863-4b6bd3f3e784
+		sourceLineageTag: num_fornecimento
+		summarizeBy: none
+		sourceColumn: num_fornecimento
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_material
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1b62366a-83c8-43d8-ad82-204bd55b65af
+		sourceLineageTag: sk_material
+		summarizeBy: sum
+		sourceColumn: sk_material
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_fornecedor
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 02b0360f-d5d4-4bfc-9dc2-37e8894ee571
+		sourceLineageTag: sk_fornecedor
+		summarizeBy: sum
+		sourceColumn: sk_fornecedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_recebedor
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 930aff71-8e4c-4edf-a9dc-8c4823df8d53
+		sourceLineageTag: sk_recebedor
+		summarizeBy: sum
+		sourceColumn: sk_recebedor
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo_material
+		dataType: string
+		lineageTag: 82ab8431-4e7c-4430-a761-af3199b76c7e
+		sourceLineageTag: tipo_material
+		summarizeBy: none
+		sourceColumn: tipo_material
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_fabricacao_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: df9fed03-ab1e-48b2-a1a5-dbcddc5cc503
+		sourceLineageTag: data_fabricacao_key
+		summarizeBy: sum
+		sourceColumn: data_fabricacao_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_recebimento_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4acf554b-3a85-439e-8b78-16077cabf6f5
+		sourceLineageTag: data_recebimento_key
+		summarizeBy: sum
+		sourceColumn: data_recebimento_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_conferencia_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c055d705-8c88-4744-bfde-86d85cc13fa0
+		sourceLineageTag: data_conferencia_key
+		summarizeBy: sum
+		sourceColumn: data_conferencia_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column qtd_fornecida
+		dataType: double
+		lineageTag: 12558018-d17d-4db4-a659-43cc7a04df7a
+		sourceLineageTag: qtd_fornecida
+		summarizeBy: sum
+		sourceColumn: qtd_fornecida
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column qtd_recebida
+		dataType: double
+		lineageTag: bdec0e0e-40a9-4850-a974-881ce63baabc
+		sourceLineageTag: qtd_recebida
+		summarizeBy: sum
+		sourceColumn: qtd_recebida
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column qtd_divergente
+		dataType: double
+		lineageTag: ed0ff42e-981d-4f1c-99c6-07d9ec4ddae3
+		sourceLineageTag: qtd_divergente
+		summarizeBy: sum
+		sourceColumn: qtd_divergente
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column unidade
+		dataType: string
+		lineageTag: dde86880-70d3-4db4-97a4-fad06166c9ea
+		sourceLineageTag: unidade
+		summarizeBy: none
+		sourceColumn: unidade
+
+		annotation SummarizationSetBy = Automatic
+
+	column custo_unitario
+		dataType: double
+		lineageTag: 88110bc5-493a-443c-801e-ee31b519c444
+		sourceLineageTag: custo_unitario
+		summarizeBy: sum
+		sourceColumn: custo_unitario
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column dias_ate_conferencia
+		dataType: int64
+		formatString: 0
+		lineageTag: 4508ea6e-9928-44a6-a150-f1179126cfc7
+		sourceLineageTag: dias_ate_conferencia
+		summarizeBy: sum
+		sourceColumn: dias_ate_conferencia
+
+		annotation SummarizationSetBy = Automatic
+
+	column custo_total
+		dataType: double
+		lineageTag: f9d46f66-937e-4f81-abb0-b78adedf71bb
+		sourceLineageTag: custo_total
+		summarizeBy: sum
+		sourceColumn: custo_total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column valor_pago
+		dataType: double
+		lineageTag: 8336bd0c-c0f7-4a21-a4c8-d9fd351688a3
+		sourceLineageTag: valor_pago
+		summarizeBy: sum
+		sourceColumn: valor_pago
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column saldo_a_pagar
+		dataType: double
+		lineageTag: ff12798c-161b-474b-835e-75d51b13781d
+		sourceLineageTag: saldo_a_pagar
+		summarizeBy: sum
+		sourceColumn: saldo_a_pagar
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column parcelas_pagas
+		dataType: int64
+		formatString: 0
+		lineageTag: 252b53e4-76d3-4207-bcd3-0216bab3a2a4
+		sourceLineageTag: parcelas_pagas
+		summarizeBy: sum
+		sourceColumn: parcelas_pagas
+
+		annotation SummarizationSetBy = Automatic
+
+	column parcelas_combinadas
+		dataType: int64
+		formatString: 0
+		lineageTag: 2a59a7b3-6001-4bee-af46-3f6998addb10
+		sourceLineageTag: parcelas_combinadas
+		summarizeBy: sum
+		sourceColumn: parcelas_combinadas
+
+		annotation SummarizationSetBy = Automatic
+
+	column _data_carga_gold
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 4d588941-2110-4cb1-9be9-26ecd75fffb3
+		sourceLineageTag: _data_carga_gold
+		summarizeBy: none
+		sourceColumn: _data_carga_gold
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fato_fornecimento = entity
+		mode: directLake
+		source
+			entityName: fato_fornecimento
+			schemaName: Gold
+			expressionSource: 'DirectLake - LK_Healt_Data_Project'
+

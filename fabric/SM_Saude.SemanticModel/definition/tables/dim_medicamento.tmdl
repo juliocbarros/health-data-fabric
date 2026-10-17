@@ -1,0 +1,107 @@
+table dim_medicamento
+	lineageTag: b76de752-fb45-4867-b275-4c62b37324d7
+	sourceLineageTag: [Gold].[dim_medicamento]
+
+	column sk_medicamento
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 56d3e36d-c83a-4454-a1af-d5c9516e6d6b
+		sourceLineageTag: sk_medicamento
+		summarizeBy: sum
+		sourceColumn: sk_medicamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column MED_ID
+		dataType: string
+		lineageTag: 84ba0773-5f83-4140-9655-8156c0a99dff
+		sourceLineageTag: MED_ID
+		summarizeBy: none
+		sourceColumn: MED_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column medicamento
+		dataType: string
+		lineageTag: 09581a07-0e4c-4bbc-b1b0-e0310d6a22c1
+		sourceLineageTag: medicamento
+		summarizeBy: none
+		sourceColumn: medicamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column classe
+		dataType: string
+		lineageTag: 3274e809-85ea-45bd-87e0-86a60d2dd183
+		sourceLineageTag: classe
+		summarizeBy: none
+		sourceColumn: classe
+
+		annotation SummarizationSetBy = Automatic
+
+	column forma
+		dataType: string
+		lineageTag: 108af60a-c25c-4114-8d77-b96a15c13d92
+		sourceLineageTag: forma
+		summarizeBy: none
+		sourceColumn: forma
+
+		annotation SummarizationSetBy = Automatic
+
+	column concentracao
+		dataType: string
+		lineageTag: 8a268f55-f906-411c-ab73-002f164146b6
+		sourceLineageTag: concentracao
+		summarizeBy: none
+		sourceColumn: concentracao
+
+		annotation SummarizationSetBy = Automatic
+
+	column armazenamento
+		dataType: string
+		lineageTag: 3a26413f-789c-46c4-8c54-6c57415a99b8
+		sourceLineageTag: armazenamento
+		summarizeBy: none
+		sourceColumn: armazenamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 71d58a0f-c9e9-47d4-aa3c-227e986e83f6
+		sourceLineageTag: status
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column custo_embalagem
+		dataType: double
+		lineageTag: 0b337954-714f-4af4-bd1b-558e5fd81322
+		sourceLineageTag: custo_embalagem
+		summarizeBy: sum
+		sourceColumn: custo_embalagem
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column _data_carga_gold
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 627457c9-3123-4e59-8ff1-99b318314bbf
+		sourceLineageTag: _data_carga_gold
+		summarizeBy: none
+		sourceColumn: _data_carga_gold
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_medicamento = entity
+		mode: directLake
+		source
+			entityName: dim_medicamento
+			schemaName: Gold
+			expressionSource: 'DirectLake - LK_Healt_Data_Project'
+

@@ -1,0 +1,69 @@
+table dim_material
+	lineageTag: e6ba5b5e-e9f2-4c68-a422-6733688b7663
+	sourceLineageTag: [Gold].[dim_material]
+
+	column sk_material
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 77d187ff-e4e7-4af4-bab3-8fa6db215d5d
+		sourceLineageTag: sk_material
+		summarizeBy: sum
+		sourceColumn: sk_material
+
+		annotation SummarizationSetBy = Automatic
+
+	column MAT_SKU
+		dataType: string
+		lineageTag: e5825c01-84c4-4826-bd9b-b3195b03eafb
+		sourceLineageTag: MAT_SKU
+		summarizeBy: none
+		sourceColumn: MAT_SKU
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo_material
+		dataType: string
+		lineageTag: 6c583ed4-2677-435a-b17a-86d9dfee4c77
+		sourceLineageTag: tipo_material
+		summarizeBy: none
+		sourceColumn: tipo_material
+
+		annotation SummarizationSetBy = Automatic
+
+	column material
+		dataType: string
+		lineageTag: 768476a2-d885-4b0d-9bf7-3a03b3aedab6
+		sourceLineageTag: material
+		summarizeBy: none
+		sourceColumn: material
+
+		annotation SummarizationSetBy = Automatic
+
+	column classe
+		dataType: string
+		lineageTag: f5639916-d089-4e0b-98d8-a3c68f836d8d
+		sourceLineageTag: classe
+		summarizeBy: none
+		sourceColumn: classe
+
+		annotation SummarizationSetBy = Automatic
+
+	column _data_carga_gold
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: d6b68089-6a76-48fe-ad70-8fd91c6ec388
+		sourceLineageTag: _data_carga_gold
+		summarizeBy: none
+		sourceColumn: _data_carga_gold
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_material = entity
+		mode: directLake
+		source
+			entityName: dim_material
+			schemaName: Gold
+			expressionSource: 'DirectLake - LK_Healt_Data_Project'
+

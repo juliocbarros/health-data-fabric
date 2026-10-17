@@ -1,0 +1,70 @@
+table dim_departamento
+	isHidden
+	lineageTag: df617b9a-1c2d-4937-8b51-694fa6a9f7d9
+	sourceLineageTag: [Gold].[dim_departamento]
+
+	column sk_departamento
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: c79c315d-ffc5-4acb-a679-2272379392f5
+		sourceLineageTag: sk_departamento
+		summarizeBy: sum
+		sourceColumn: sk_departamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column DEP_ID
+		dataType: string
+		lineageTag: 3078fff9-d628-476e-aac0-52324c47d574
+		sourceLineageTag: DEP_ID
+		summarizeBy: none
+		sourceColumn: DEP_ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column departamento
+		dataType: string
+		lineageTag: eb69d93e-e11c-4ca0-afab-0d310b0531e9
+		sourceLineageTag: departamento
+		summarizeBy: none
+		sourceColumn: departamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column descricao
+		dataType: string
+		lineageTag: f7223ab0-f408-42b4-9911-cf87f9dc5cf0
+		sourceLineageTag: descricao
+		summarizeBy: none
+		sourceColumn: descricao
+
+		annotation SummarizationSetBy = Automatic
+
+	column localizacao
+		dataType: string
+		lineageTag: 503b88a2-021e-47a8-a1d4-4d0d66ee1c40
+		sourceLineageTag: localizacao
+		summarizeBy: none
+		sourceColumn: localizacao
+
+		annotation SummarizationSetBy = Automatic
+
+	column _data_carga_gold
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: 03b20008-3c9e-4bad-b829-b4aefa52d962
+		sourceLineageTag: _data_carga_gold
+		summarizeBy: none
+		sourceColumn: _data_carga_gold
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_departamento = entity
+		mode: directLake
+		source
+			entityName: dim_departamento
+			schemaName: Gold
+			expressionSource: 'DirectLake - LK_Healt_Data_Project'
+

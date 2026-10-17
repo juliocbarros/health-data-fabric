@@ -1,0 +1,137 @@
+table fato_diagnostico
+	lineageTag: c228617d-3257-4f22-ab83-0d66a453c9b8
+	sourceLineageTag: [Gold].[fato_diagnostico]
+
+	measure Diagnósticos = COUNTROWS ( fato_diagnostico )
+		formatString: #,0
+		displayFolder: Clínico
+		lineageTag: c52fa5bd-6144-4b95-98f4-28b07f081a94
+
+	measure 'Diagnósticos por Visita' = DIVIDE ( [Diagnósticos], DISTINCTCOUNT ( fato_diagnostico[sk_visita] ) )
+		formatString: #,0.00
+		displayFolder: Clínico
+		lineageTag: 91a9521d-e55a-4770-8622-1329bb926c37
+
+	measure 'Diagnósticos Crônicos' = CALCULATE ( [Diagnósticos], fato_diagnostico[status] = "Chronic" )
+		formatString: #,0
+		displayFolder: Clínico
+		lineageTag: d7e05573-c4c8-48dc-8108-fcdc27ef1772
+
+	column sk_visita
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fa895844-616c-4f34-a9b0-c7552c9eec2a
+		sourceLineageTag: sk_visita
+		summarizeBy: sum
+		sourceColumn: sk_visita
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_visita
+		dataType: string
+		lineageTag: 49a3d3ed-e656-47a2-b261-534a7e52c896
+		sourceLineageTag: num_visita
+		summarizeBy: none
+		sourceColumn: num_visita
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_paciente
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3fb4c160-2f44-454e-b73f-c6a2f0c292ec
+		sourceLineageTag: sk_paciente
+		summarizeBy: sum
+		sourceColumn: sk_paciente
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_sala
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 69e5beb9-b4ba-4513-ad72-d43b5955ece5
+		sourceLineageTag: sk_sala
+		summarizeBy: sum
+		sourceColumn: sk_sala
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 1c49cfdf-d23b-4d8f-b0bb-8da3d37b46c5
+		sourceLineageTag: data_key
+		summarizeBy: sum
+		sourceColumn: data_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column sequencia
+		dataType: int64
+		formatString: 0
+		lineageTag: cd51add4-993c-4ebe-8b61-dc1742c0226b
+		sourceLineageTag: sequencia
+		summarizeBy: sum
+		sourceColumn: sequencia
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_diagnostico
+		dataType: int64
+		formatString: 0
+		lineageTag: ca00575d-b3a9-4715-8d79-5a15e20caa1d
+		sourceLineageTag: cod_diagnostico
+		summarizeBy: sum
+		sourceColumn: cod_diagnostico
+
+		annotation SummarizationSetBy = Automatic
+
+	column diagnostico
+		dataType: string
+		lineageTag: a32ad800-cd24-4d81-8fe2-c757b7d274d2
+		sourceLineageTag: diagnostico
+		summarizeBy: none
+		sourceColumn: diagnostico
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: b20c8640-57c1-4250-9fe4-1140a604de86
+		sourceLineageTag: status
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column conduta_recomendada
+		dataType: string
+		lineageTag: 51bb8cdd-aeab-48c4-a22a-c4ad7c7f5838
+		sourceLineageTag: conduta_recomendada
+		summarizeBy: none
+		sourceColumn: conduta_recomendada
+
+		annotation SummarizationSetBy = Automatic
+
+	column _data_carga_gold
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: abbc284d-5c44-4745-8b6c-106e15f52b5e
+		sourceLineageTag: _data_carga_gold
+		summarizeBy: none
+		sourceColumn: _data_carga_gold
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fato_diagnostico = entity
+		mode: directLake
+		source
+			entityName: fato_diagnostico
+			schemaName: Gold
+			expressionSource: 'DirectLake - LK_Healt_Data_Project'
+

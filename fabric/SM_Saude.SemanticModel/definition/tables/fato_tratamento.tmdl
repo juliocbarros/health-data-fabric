@@ -1,0 +1,127 @@
+table fato_tratamento
+	lineageTag: f944c9a4-5509-47f3-9031-2c16cd68a843
+	sourceLineageTag: [Gold].[fato_tratamento]
+
+	measure Tratamentos = COUNTROWS ( fato_tratamento )
+		formatString: #,0
+		displayFolder: Clínico
+		lineageTag: 8451ce6d-30f0-4058-91fe-865d233754dc
+
+	/// Falhou ou não tolerado.
+	measure '% Tratamentos com Falha' = DIVIDE ( CALCULATE ( [Tratamentos], fato_tratamento[status] IN { "Failed", "Not Tolerated" } ), [Tratamentos] )
+		formatString: 0.0%
+		displayFolder: Clínico
+		lineageTag: 5a3d94fe-297a-4554-bddd-64472f747943
+
+	measure '% Tratamentos Recusados' = DIVIDE ( CALCULATE ( [Tratamentos], fato_tratamento[status] = "Declined" ), [Tratamentos] )
+		formatString: 0.0%
+		displayFolder: Clínico
+		lineageTag: aadb97fe-42af-4e3f-b8fe-293824716122
+
+	column sk_visita
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: e053ab4c-0fa5-42f5-ba34-37aa9b16f97a
+		sourceLineageTag: sk_visita
+		summarizeBy: sum
+		sourceColumn: sk_visita
+
+		annotation SummarizationSetBy = Automatic
+
+	column num_visita
+		dataType: string
+		lineageTag: 50b4c7f0-27b0-46b3-8562-dde9cbf4cc2d
+		sourceLineageTag: num_visita
+		summarizeBy: none
+		sourceColumn: num_visita
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_paciente
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7b9ec9d2-939a-462b-8750-44c49859e9b5
+		sourceLineageTag: sk_paciente
+		summarizeBy: sum
+		sourceColumn: sk_paciente
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: bc7b7e39-9da2-4c51-a9fe-7b63b73fcf03
+		sourceLineageTag: data_key
+		summarizeBy: sum
+		sourceColumn: data_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column sequencia
+		dataType: int64
+		formatString: 0
+		lineageTag: 1db64932-44a9-4d7e-bc0c-721db6cd0451
+		sourceLineageTag: sequencia
+		summarizeBy: sum
+		sourceColumn: sequencia
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo
+		dataType: string
+		lineageTag: 9c090297-2e91-4d34-9b12-2cab54d53816
+		sourceLineageTag: tipo
+		summarizeBy: none
+		sourceColumn: tipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column cod_tratamento
+		dataType: int64
+		formatString: 0
+		lineageTag: b6c5e8df-c9d0-4830-aa7d-28b1c331fd92
+		sourceLineageTag: cod_tratamento
+		summarizeBy: sum
+		sourceColumn: cod_tratamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column tratamento
+		dataType: string
+		lineageTag: cb995f22-28e2-4980-a492-ac9cb45c2466
+		sourceLineageTag: tratamento
+		summarizeBy: none
+		sourceColumn: tratamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 022cfac2-c299-4fa2-87f2-db0679c0ef16
+		sourceLineageTag: status
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column _data_carga_gold
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: f949992a-6b8e-409f-ba6e-2214d102a337
+		sourceLineageTag: _data_carga_gold
+		summarizeBy: none
+		sourceColumn: _data_carga_gold
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fato_tratamento = entity
+		mode: directLake
+		source
+			entityName: fato_tratamento
+			schemaName: Gold
+			expressionSource: 'DirectLake - LK_Healt_Data_Project'
+

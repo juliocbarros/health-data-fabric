@@ -1,0 +1,151 @@
+table fato_pagamento
+	lineageTag: 73359407-353b-47fd-8451-32c5f6c58dcb
+	sourceLineageTag: [Gold].[fato_pagamento]
+
+	/// Pela data de pagamento.
+	measure 'Valor Recebido' = CALCULATE ( SUM ( fato_pagamento[valor_parcela] ), fato_pagamento[status] = "Completed" )
+		formatString: #,0.00
+		displayFolder: Financeiro
+		lineageTag: c4307f96-664a-473c-ac2e-8a3cfb6feb88
+
+	measure 'Valor Pendente' = CALCULATE ( SUM ( fato_pagamento[valor_parcela] ), fato_pagamento[status] = "Pending" )
+		formatString: #,0.00
+		displayFolder: Financeiro
+		lineageTag: 1e2d32e1-8288-4b78-8824-1fa568f7c0d1
+
+	measure '% Parcelas Pendentes' = DIVIDE ( CALCULATE ( COUNTROWS ( fato_pagamento ), fato_pagamento[status] = "Pending" ), COUNTROWS ( fato_pagamento ) )
+		formatString: 0.0%
+		displayFolder: Financeiro
+		lineageTag: 04f713b8-3b37-4a0f-ab7a-fb886d69977a
+
+	column sk_fatura
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 3007ee71-3c12-45d6-a7d5-fab160f53ff7
+		sourceLineageTag: sk_fatura
+		summarizeBy: sum
+		sourceColumn: sk_fatura
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_visita
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6deb351b-bec1-4384-84d2-c697635e785d
+		sourceLineageTag: sk_visita
+		summarizeBy: sum
+		sourceColumn: sk_visita
+
+		annotation SummarizationSetBy = Automatic
+
+	column sk_paciente
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 05a95f07-1b07-4461-84a9-16c4c845c426
+		sourceLineageTag: sk_paciente
+		summarizeBy: sum
+		sourceColumn: sk_paciente
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_pagamento_key
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 854b876a-3b8c-4f73-9c5b-11ac64e2c5d6
+		sourceLineageTag: data_pagamento_key
+		summarizeBy: sum
+		sourceColumn: data_pagamento_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo_fatura
+		dataType: string
+		lineageTag: c7ab267e-5b9e-4dc1-96e3-cb03b160d3f9
+		sourceLineageTag: tipo_fatura
+		summarizeBy: none
+		sourceColumn: tipo_fatura
+
+		annotation SummarizationSetBy = Automatic
+
+	column parcela
+		dataType: int64
+		formatString: 0
+		lineageTag: e8f072fd-205a-4906-99bf-5646b1803aaf
+		sourceLineageTag: parcela
+		summarizeBy: sum
+		sourceColumn: parcela
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_parcelas
+		dataType: int64
+		formatString: 0
+		lineageTag: 1469e5e9-f449-4064-beaa-322d535c5f64
+		sourceLineageTag: total_parcelas
+		summarizeBy: sum
+		sourceColumn: total_parcelas
+
+		annotation SummarizationSetBy = Automatic
+
+	column valor_total_paciente
+		dataType: double
+		lineageTag: 82c2b8b9-7130-4aff-bddd-9f4592178a90
+		sourceLineageTag: valor_total_paciente
+		summarizeBy: sum
+		sourceColumn: valor_total_paciente
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column valor_parcela
+		dataType: double
+		lineageTag: d8c35733-9646-45d6-a757-5500f7583b71
+		sourceLineageTag: valor_parcela
+		summarizeBy: sum
+		sourceColumn: valor_parcela
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column meio_pagamento
+		dataType: string
+		lineageTag: 8730111c-b3be-49b9-93db-ba15790199d1
+		sourceLineageTag: meio_pagamento
+		summarizeBy: none
+		sourceColumn: meio_pagamento
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 7e81ee06-3156-44a9-9517-185ac4354077
+		sourceLineageTag: status
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column _data_carga_gold
+		dataType: dateTime
+		isHidden
+		formatString: General Date
+		lineageTag: cfb68952-dd3d-4bd7-a755-9618b364f80c
+		sourceLineageTag: _data_carga_gold
+		summarizeBy: none
+		sourceColumn: _data_carga_gold
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fato_pagamento = entity
+		mode: directLake
+		source
+			entityName: fato_pagamento
+			schemaName: Gold
+			expressionSource: 'DirectLake - LK_Healt_Data_Project'
+
