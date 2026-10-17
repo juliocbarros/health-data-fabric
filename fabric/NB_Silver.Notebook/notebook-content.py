@@ -309,3 +309,17 @@ print(spark.table(f"{SILVER}.ptal").join(spark.table(f"{SILVER}.algy"), "ALG_ID"
 # META   "language": "python",
 # META   "language_group": "synapse_pyspark"
 # META }
+
+# CELL ********************
+
+# Interrompe o pipeline se alguma tabela não carregou corretamente
+problemas = [r for r in resultado if not str(r[3]).startswith("OK")]
+if problemas:
+    raise Exception(f"{len(problemas)} tabela(s) com problema: {problemas}")
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }

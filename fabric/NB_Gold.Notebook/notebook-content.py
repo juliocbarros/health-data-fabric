@@ -465,3 +465,17 @@ display(spark.createDataFrame(amb, "tabela_silver string, linhas_fora_da_gold lo
 # META   "language": "python",
 # META   "language_group": "synapse_pyspark"
 # META }
+
+# CELL ********************
+
+# Interrompe o pipeline se algum fato apontar para chave inexistente
+problemas = [r for r in res if r[3] > 0]
+if problemas:
+    raise Exception(f"Relações quebradas: {problemas}")
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
