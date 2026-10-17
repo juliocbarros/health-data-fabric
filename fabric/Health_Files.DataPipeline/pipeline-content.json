@@ -83,10 +83,33 @@
           "secureInput": false,
           "secureOutput": false
         },
-        "name": "Notebook1",
+        "name": "Bronze_Carga",
         "dependsOn": [
           {
             "activity": "Copy data_Load_CSV",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "fc1604f4-346f-81c9-4d9b-406b7f3b4f7d",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Silver_Carga",
+        "dependsOn": [
+          {
+            "activity": "Bronze_Carga",
             "dependencyConditions": [
               "Succeeded"
             ]
