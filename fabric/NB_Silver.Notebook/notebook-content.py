@@ -20,22 +20,29 @@
 # META   }
 # META }
 
-# CELL ********************
+# MARKDOWN ********************
 
-# Camada Silver — limpeza e tipagem
-
+# # Camada Silver — limpeza e tipagem
+# 
 # Lê as tabelas do schema `Bronze` e grava as tabelas tratadas no schema `Silver` do Lakehouse `LK_Healt_Data_Project`.
-
+# 
 # O que o notebook faz, com base na aba **Qualidade** do dicionário de dados:
-
+# 
 # 1. **Textos:** remove espaços e converte vazio e o texto `'NULL'` em nulo.
 # 2. **Tipos:** converte códigos para inteiro, valores para decimal com 2 casas e datas (nos formatos `AAAA-MM-DD` e `M/D/AAAA`) para `date` ou `timestamp`.
 # 3. **Chaves:** completa `ALG_ID` com zeros à esquerda na `ptal` e remove duplicados em `stff`, `roms`, `medt`, `ptal` e `invn`.
 # 4. **Marcações:** indica a origem da visita (agendamento, E ou W), os `REFR_NO` repetidos e o tipo de material (medicamento ou equipamento) nos fornecimentos.
 # 5. **Conferência:** mostra as linhas por tabela e quantos valores não puderam ser convertidos.
-
+# 
 # **Antes de executar:** anexe o Lakehouse `LK_Healt_Data_Project` como Lakehouse padrão e importe este arquivo como notebook (não cole o conteúdo numa célula só).
-## 1. Parâmetros e configuração
+
+
+# MARKDOWN ********************
+
+# ## 1. Parâmetros e configuração
+
+# CELL ********************
+
 from pyspark.sql import functions as F, Window as W
 
 BRONZE = "Bronze"
@@ -76,7 +83,20 @@ SPEC = {
     "vpmt": dict(tipos={"SPL_CST": D, "PMNT_TRM": I, "TRM_NO": I, "VPMT_AMT": D, "PMNT_DATE": DT, "PMNT_DUE": D, "VPSTATUS_CD": I}, esperado=1802488),
     "invn": dict(tipos={"INGTN_TS": DT, "OPEN_QTY": D, "RCVD_QTY": D, "ISSD_QTY": D, "CLSD_QTY": D}, esperado=90731124),
 }
-## 2. Funções genéricas
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# MARKDOWN ********************
+
+# ## 2. Funções genéricas
+
+# CELL ********************
+
 AUDITORIA = ["_arquivo_origem", "_data_carga"]
 
 def limpar_textos(df):
@@ -127,20 +147,33 @@ def gravar(df, tabela, colunas_originais):
             .withColumn("_data_carga_silver", F.current_timestamp()))
     (df.write.format("delta").mode("overwrite").option("overwriteSchema", True)
        .saveAsTable(f"{SILVER}.{tabela}"))
-## 3. Regras específicas por tabela
 
-#Cada regra recebe a tabela já limpa e tipada e devolve a versão corrigida. As tabelas sem regra passam só pela limpeza e tipagem.
+# METADATA ********************
 
-#|---|---|
-#| `ptal` | `ALG_ID` com 3 dígitos (`7` → `007`); um registro por paciente + alergia, ficando o de maior gravidade |
-#| `stff` | um registro por `STF_ID`, o de ingestão mais recente |
-#| `roms`, `medt` | um registro por chave |
-#| `eqpm` | `EQP_CAT__1/2/3` renomeadas para `EQP_CAT_1/2/3`, como no ERD |
-#| `vist` | `REFR_ORIGEM` (AGENDAMENTO, E ou W) e `REFR_DUPLICADO` |
-#| `bill`, `mdbl` | `REFR_DUPLICADO` |
-#| `diag`, `trtm`, `tmmd` | `REFR_AMBIGUO`: a visita tem `REFR_NO` repetido e não dá para saber o paciente |
-#| `sply` | `MAT_TIPO` (MEDICAMENTO ou EQUIPAMENTO) |
-#| `invn` | um registro por medicamento + dia |
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# MARKDOWN ********************
+
+# ## 3. Regras específicas por tabela
+# 
+# Cada regra recebe a tabela já limpa e tipada e devolve a versão corrigida. As tabelas sem regra passam só pela limpeza e tipagem.
+# 
+# | Tabela | Regra |
+# |---|---|
+# | `ptal` | `ALG_ID` com 3 dígitos (`7` → `007`); um registro por paciente + alergia, ficando o de maior gravidade |
+# | `stff` | um registro por `STF_ID`, o de ingestão mais recente |
+# | `roms`, `medt` | um registro por chave |
+# | `eqpm` | `EQP_CAT__1/2/3` renomeadas para `EQP_CAT_1/2/3`, como no ERD |
+# | `vist` | `REFR_ORIGEM` (AGENDAMENTO, E ou W) e `REFR_DUPLICADO` |
+# | `bill`, `mdbl` | `REFR_DUPLICADO` |
+# | `diag`, `trtm`, `tmmd` | `REFR_AMBIGUO`: a visita tem `REFR_NO` repetido e não dá para saber o paciente |
+# | `sply` | `MAT_TIPO` (MEDICAMENTO ou EQUIPAMENTO) |
+# | `invn` | um registro por medicamento + dia |
+
+# CELL ********************
 
 def refr_duplicado(df):
     return df.withColumn("REFR_DUPLICADO", F.count("*").over(W.partitionBy("REFR_NO")) > 1)
@@ -193,9 +226,22 @@ REGRAS = {
 }
 # Mapa de nomes renomeados (para manter a ordem original das colunas)
 RENOMEADAS = {f"EQP_CAT__{n}": f"EQP_CAT_{n}" for n in (1, 2, 3)}
-## 4. Execução
 
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# MARKDOWN ********************
+
+# ## 4. Execução
+# 
 # As tabelas são processadas na ordem do `SPEC`: dimensões primeiro, porque `vist`, `mdcn` e `eqpm` são usadas nas regras de outras tabelas. A `invn` (90,7 milhões de linhas) é a mais demorada.
+
+# CELL ********************
+
 resultado = []
 for tabela, cfg in SPEC.items():
     try:
@@ -214,15 +260,40 @@ for tabela, cfg in SPEC.items():
         linhas, falhas, status = None, {}, f"ERRO: {str(e)[:300]}"
     resultado.append((tabela, cfg["esperado"], linhas, status, str(falhas) if falhas else ""))
     print(tabela, linhas, status, falhas or "")
-## 5. Conferência
 
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# MARKDOWN ********************
+
+# ## 5. Conferência
+# 
 # - **status `OK`:** a tabela tem o número de linhas esperado.
 # - **falhas de conversão:** colunas em que algum valor preenchido não pôde ser convertido para o tipo definido (e virou nulo), com a quantidade de valores. O esperado é que essa coluna fique vazia em todas as tabelas.
+
+# CELL ********************
 
 conf = spark.createDataFrame(
     resultado, "tabela string, esperado long, carregado long, status string, falhas_conversao string")
 display(conf)
-## 6. Verificações pontuais (opcional)
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
+
+# MARKDOWN ********************
+
+# ## 6. Verificações pontuais (opcional)
+
+# CELL ********************
+
 # Origem das visitas: deve dar 250.245 AGENDAMENTO, 326.043 E e 341.043 W
 display(spark.table(f"{SILVER}.vist").groupBy("REFR_ORIGEM").count())
 
@@ -231,7 +302,6 @@ display(spark.table(f"{SILVER}.sply").groupBy("MAT_TIPO").count())
 
 # Alergias: todos os ALG_ID da ptal devem existir na algy (resultado esperado: 0)
 print(spark.table(f"{SILVER}.ptal").join(spark.table(f"{SILVER}.algy"), "ALG_ID", "left_anti").count())
-
 
 # METADATA ********************
 

@@ -96,7 +96,7 @@
       {
         "type": "TridentNotebook",
         "typeProperties": {
-          "notebookId": "fc1604f4-346f-81c9-4d9b-406b7f3b4f7d",
+          "notebookId": "f28b43bc-f87a-9509-4114-1e412bdd2e94",
           "workspaceId": "00000000-0000-0000-0000-000000000000"
         },
         "policy": {
@@ -106,10 +106,33 @@
           "secureInput": false,
           "secureOutput": false
         },
-        "name": "Silver_Carga",
+        "name": "carga Silver",
         "dependsOn": [
           {
             "activity": "Bronze_Carga",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "9f8945a0-f437-8e8a-4e9e-f6498ea2a811",
+          "workspaceId": "00000000-0000-0000-0000-000000000000"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "carga gold",
+        "dependsOn": [
+          {
+            "activity": "carga Silver",
             "dependencyConditions": [
               "Succeeded"
             ]
