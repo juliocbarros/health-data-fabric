@@ -2,36 +2,6 @@ table fato_estoque_mensal
 	lineageTag: 79ed4fb6-b046-4e5a-8a9a-e848cc5438f6
 	sourceLineageTag: [Gold].[fato_estoque_mensal]
 
-	/// Posição no último mês do filtro (não soma meses).
-	measure 'Estoque Final' =
-			VAR UltimoMes = MAX ( fato_estoque_mensal[mes_key] )
-			RETURN
-			    CALCULATE ( SUM ( fato_estoque_mensal[estoque_final] ), fato_estoque_mensal[mes_key] = UltimoMes )
-		formatString: #,0
-		displayFolder: Suprimentos
-		lineageTag: 238ee282-1786-4967-b747-f48a04550169
-
-	measure 'Entradas no Estoque' = SUM ( fato_estoque_mensal[qtd_recebida] )
-		formatString: #,0
-		displayFolder: Suprimentos
-		lineageTag: f7fe7a68-4f11-4058-b186-77d16723e027
-
-	measure 'Saídas do Estoque' = SUM ( fato_estoque_mensal[qtd_saida] )
-		formatString: #,0
-		displayFolder: Suprimentos
-		lineageTag: 8fe62a73-2f9b-460d-a171-48c36ce97223
-
-	/// Dias com estoque zerado ou negativo.
-	measure '% Dias em Ruptura' = DIVIDE ( SUM ( fato_estoque_mensal[dias_em_ruptura] ), SUM ( fato_estoque_mensal[dias_com_registro] ) )
-		formatString: 0.0%
-		displayFolder: Suprimentos
-		lineageTag: 27027460-6552-4a44-afac-d664e3c671ff
-
-	measure 'Medicamentos com Estoque Negativo' = CALCULATE ( DISTINCTCOUNT ( fato_estoque_mensal[sk_medicamento] ), fato_estoque_mensal[fechou_negativo] = TRUE () )
-		formatString: #,0
-		displayFolder: Suprimentos
-		lineageTag: 809417c4-5935-4239-87ee-6e4583856fd2
-
 	column sk_medicamento
 		dataType: int64
 		isHidden

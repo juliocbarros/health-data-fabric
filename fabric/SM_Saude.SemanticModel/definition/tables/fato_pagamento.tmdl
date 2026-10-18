@@ -2,22 +2,6 @@ table fato_pagamento
 	lineageTag: 73359407-353b-47fd-8451-32c5f6c58dcb
 	sourceLineageTag: [Gold].[fato_pagamento]
 
-	/// Pela data de pagamento.
-	measure 'Valor Recebido' = CALCULATE ( SUM ( fato_pagamento[valor_parcela] ), fato_pagamento[status] = "Completed" )
-		formatString: #,0.00
-		displayFolder: Financeiro
-		lineageTag: c4307f96-664a-473c-ac2e-8a3cfb6feb88
-
-	measure 'Valor Pendente' = CALCULATE ( SUM ( fato_pagamento[valor_parcela] ), fato_pagamento[status] = "Pending" )
-		formatString: #,0.00
-		displayFolder: Financeiro
-		lineageTag: 1e2d32e1-8288-4b78-8824-1fa568f7c0d1
-
-	measure '% Parcelas Pendentes' = DIVIDE ( CALCULATE ( COUNTROWS ( fato_pagamento ), fato_pagamento[status] = "Pending" ), COUNTROWS ( fato_pagamento ) )
-		formatString: 0.0%
-		displayFolder: Financeiro
-		lineageTag: 04f713b8-3b37-4a0f-ab7a-fb886d69977a
-
 	column sk_fatura
 		dataType: int64
 		isHidden

@@ -2,38 +2,6 @@ table fato_fornecimento
 	lineageTag: bbcbb814-1c0b-4308-afea-df5ae7e48c87
 	sourceLineageTag: [Gold].[fato_fornecimento]
 
-	measure 'Lotes Recebidos' = COUNTROWS ( fato_fornecimento )
-		formatString: #,0
-		displayFolder: Suprimentos
-		lineageTag: 608d8a5d-4899-4533-8a0a-109947b2e07f
-
-	/// Custo total informado nos pagamentos ao fornecedor.
-	measure 'Custo dos Fornecimentos' = SUM ( fato_fornecimento[custo_total] )
-		formatString: #,0.00
-		displayFolder: Suprimentos
-		lineageTag: 4bc482c5-4d63-4202-ab5e-d104d4bd0fef
-
-	measure 'Valor Pago a Fornecedores' = SUM ( fato_fornecimento[valor_pago] )
-		formatString: #,0.00
-		displayFolder: Suprimentos
-		lineageTag: 11d8e3c3-3028-4312-8f75-54a4f61eabcc
-
-	measure 'Saldo a Pagar a Fornecedores' = SUM ( fato_fornecimento[saldo_a_pagar] )
-		formatString: #,0.00
-		displayFolder: Suprimentos
-		lineageTag: 0d1a6042-78bc-42e8-a61d-5ca55940b0fb
-
-	/// Quantidade fornecida que não foi recebida.
-	measure '% Divergência no Recebimento' = DIVIDE ( SUM ( fato_fornecimento[qtd_divergente] ), SUM ( fato_fornecimento[qtd_fornecida] ) )
-		formatString: 0.0%
-		displayFolder: Suprimentos
-		lineageTag: 44301f8c-6501-4849-b137-670685abe102
-
-	measure 'Dias Médios até Conferência' = AVERAGE ( fato_fornecimento[dias_ate_conferencia] )
-		formatString: #,0.0
-		displayFolder: Suprimentos
-		lineageTag: 1ea53711-eef7-4e05-b384-8689779f554d
-
 	column num_fornecimento
 		dataType: string
 		lineageTag: ae46f498-5535-454d-8863-4b6bd3f3e784

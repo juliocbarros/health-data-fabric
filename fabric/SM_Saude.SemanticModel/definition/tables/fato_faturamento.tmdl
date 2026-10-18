@@ -2,44 +2,6 @@ table fato_faturamento
 	lineageTag: a25fe3d3-d112-43f8-992a-816544a93243
 	sourceLineageTag: [Gold].[fato_faturamento]
 
-	measure Faturas = COUNTROWS ( fato_faturamento )
-		formatString: #,0
-		displayFolder: Financeiro
-		lineageTag: c571df61-32dd-469c-95e1-84e6aab41157
-
-	/// Atendimento + medicamentos, pela data de emissão.
-	measure 'Valor Faturado' = SUM ( fato_faturamento[valor_fatura] )
-		formatString: #,0.00
-		displayFolder: Financeiro
-		lineageTag: e29e068b-f8a4-491b-b729-8520a4b4e292
-
-	measure 'Ticket Médio por Visita' = DIVIDE ( [Valor Faturado], DISTINCTCOUNT ( fato_faturamento[sk_visita] ) )
-		formatString: #,0.00
-		displayFolder: Financeiro
-		lineageTag: a64da65d-7301-41c9-8a22-3e239cfc7bd1
-
-	/// Parcelas concluídas, atribuídas à data de emissão da fatura.
-	measure 'Valor Pago pelo Paciente' = SUM ( fato_faturamento[valor_pago_paciente] )
-		formatString: #,0.00
-		displayFolder: Financeiro
-		lineageTag: 4816b950-1bd2-4ec5-ab50-69bd9e2cc9a6
-
-	measure '% Faturas Negadas pelo Seguro' = DIVIDE ( CALCULATE ( [Faturas], fato_faturamento[status] = "Insurance Denied" ), [Faturas] )
-		formatString: 0.0%
-		displayFolder: Financeiro
-		lineageTag: 60174c72-a333-49fe-95b9-186694bb3823
-
-	/// Valor considerado perdido.
-	measure 'Valor Baixado (Write-Off)' = CALCULATE ( [Valor Faturado], fato_faturamento[status] = "Write-Off" )
-		formatString: #,0.00
-		displayFolder: Financeiro
-		lineageTag: c67ac9d9-77ce-4c6d-b6f5-2ae0329ecc63
-
-	measure 'Valor em Análise pelo Seguro' = CALCULATE ( [Valor Faturado], fato_faturamento[status] = "Pending Insurance Review" )
-		formatString: #,0.00
-		displayFolder: Financeiro
-		lineageTag: bd2d33eb-f825-42e8-86f2-c567fa99a787
-
 	column sk_fatura
 		dataType: int64
 		isHidden

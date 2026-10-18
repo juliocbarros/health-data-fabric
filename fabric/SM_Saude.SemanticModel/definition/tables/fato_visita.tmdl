@@ -2,49 +2,6 @@ table fato_visita
 	lineageTag: 9c3336dd-4a93-4ceb-a277-fe795dc34f11
 	sourceLineageTag: [Gold].[fato_visita]
 
-	/// Por data de entrada.
-	measure Visitas = COUNTROWS ( fato_visita )
-		formatString: #,0
-		displayFolder: Visitas
-		lineageTag: 468c4a8e-ad8c-4c64-9ec6-c207e6faf814
-
-	measure 'Pacientes Atendidos' = DISTINCTCOUNT ( fato_visita[sk_paciente] )
-		formatString: #,0
-		displayFolder: Visitas
-		lineageTag: 68e7e988-bb62-4226-a9c4-c282212bfe56
-
-	measure 'Permanência Média (dias)' = AVERAGE ( fato_visita[permanencia_dias] )
-		formatString: #,0.0
-		displayFolder: Visitas
-		lineageTag: 664e92e8-598a-47ec-a663-94a93db14c95
-
-	measure 'Visitas Internadas' = CALCULATE ( [Visitas], fato_visita[status] = "Admitted" )
-		formatString: #,0
-		displayFolder: Visitas
-		lineageTag: f841cd85-1fc7-40f0-9376-414674f27db6
-
-	measure 'Visitas com Retorno' = CALCULATE ( [Visitas], fato_visita[status] = "Need Follow-Up" )
-		formatString: #,0
-		displayFolder: Visitas
-		lineageTag: e3bea4bc-3a5e-4fee-a250-20574ca7059a
-
-	/// Visitas que vieram de agendamento.
-	measure '% Visitas Agendadas' = DIVIDE ( CALCULATE ( [Visitas], fato_visita[origem] = "AGENDAMENTO" ), [Visitas] )
-		formatString: 0.0%
-		displayFolder: Visitas
-		lineageTag: 0c985dde-1055-47a4-9c06-eeaf2944d8c2
-
-	measure 'Visitas por Paciente' = DIVIDE ( [Visitas], [Pacientes Atendidos] )
-		formatString: #,0.00
-		displayFolder: Visitas
-		lineageTag: 7137d043-ca8a-4645-b94e-5850fee8494e
-
-	/// Conta pela data de saída (relação inativa).
-	measure 'Altas por Data de Saída' = CALCULATE ( [Visitas], USERELATIONSHIP ( fato_visita[data_saida_key], dim_calendario[data_key] ) )
-		formatString: #,0
-		displayFolder: Visitas
-		lineageTag: 37be026f-cf29-4e9f-8790-8d74b19de360
-
 	column sk_visita
 		dataType: int64
 		isHidden

@@ -2,58 +2,6 @@ table fato_agendamento
 	lineageTag: efcc92c3-1549-4160-b0eb-6eb54cca73e5
 	sourceLineageTag: [Gold].[fato_agendamento]
 
-	/// Total de agendamentos.
-	measure Agendamentos = COUNTROWS ( fato_agendamento )
-		formatString: #,0
-		displayFolder: Agendamentos
-		lineageTag: 2953d7a4-3236-4e34-8010-88ed313e97e7
-
-	/// Status Completed.
-	measure 'Agendamentos Realizados' = SUM ( fato_agendamento[compareceu] )
-		formatString: #,0
-		displayFolder: Agendamentos
-		lineageTag: e5c31a72-cf4e-4160-9fab-03649c77e614
-
-	/// Status No show.
-	measure Faltas = SUM ( fato_agendamento[faltou] )
-		formatString: #,0
-		displayFolder: Agendamentos
-		lineageTag: ac461fc1-e4f1-4a6f-b7be-790859f51a2f
-
-	/// Status Cancelled.
-	measure Cancelamentos = SUM ( fato_agendamento[cancelado] )
-		formatString: #,0
-		displayFolder: Agendamentos
-		lineageTag: 55dd8b4f-661d-4253-8a1c-02c0699d5599
-
-	/// Realizados / (realizados + faltas). Ignora futuros e cancelados.
-	measure 'Taxa de Comparecimento' = DIVIDE ( [Agendamentos Realizados], [Agendamentos Realizados] + [Faltas] )
-		formatString: 0.0%
-		displayFolder: Agendamentos
-		lineageTag: 596712ac-d55a-4c6b-a582-6c875ba84fd8
-
-	measure 'Taxa de Faltas' = DIVIDE ( [Faltas], [Agendamentos Realizados] + [Faltas] )
-		formatString: 0.0%
-		displayFolder: Agendamentos
-		lineageTag: 49aa8547-e31b-48e5-be16-6f46d47f7390
-
-	/// Cancelados / agendamentos já passados.
-	measure 'Taxa de Cancelamento' = DIVIDE ( [Cancelamentos], CALCULATE ( [Agendamentos], fato_agendamento[status] <> "In Future" ) )
-		formatString: 0.0%
-		displayFolder: Agendamentos
-		lineageTag: 24c1d8e9-5a48-456f-a9d9-67730737331f
-
-	measure 'Agendamentos Futuros' = CALCULATE ( [Agendamentos], fato_agendamento[status] = "In Future" )
-		formatString: #,0
-		displayFolder: Agendamentos
-		lineageTag: 5bbd2bc7-9242-4ab8-a8b8-e848be5b9897
-
-	/// Usa a relação inativa; para analisar por quem agendou.
-	measure 'Agendamentos Feitos pelo Atendente' = CALCULATE ( [Agendamentos], USERELATIONSHIP ( fato_agendamento[sk_atendente], dim_funcionario[sk_funcionario] ) )
-		formatString: #,0
-		displayFolder: Agendamentos
-		lineageTag: ad51c90d-fbe4-4116-991b-3ca89f3846ca
-
 	column num_agendamento
 		dataType: string
 		lineageTag: 1c5dfbbd-c921-4c9a-9ec8-b0dfbc261a8d

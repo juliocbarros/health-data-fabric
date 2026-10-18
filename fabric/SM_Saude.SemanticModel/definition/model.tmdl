@@ -29,4 +29,5 @@ ref table fato_pagamento
 ref table fato_prescricao
 ref table fato_tratamento
 ref table fato_visita
+ref table Medidas
 

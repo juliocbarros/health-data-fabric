@@ -2,22 +2,6 @@ table fato_tratamento
 	lineageTag: f944c9a4-5509-47f3-9031-2c16cd68a843
 	sourceLineageTag: [Gold].[fato_tratamento]
 
-	measure Tratamentos = COUNTROWS ( fato_tratamento )
-		formatString: #,0
-		displayFolder: Clínico
-		lineageTag: 8451ce6d-30f0-4058-91fe-865d233754dc
-
-	/// Falhou ou não tolerado.
-	measure '% Tratamentos com Falha' = DIVIDE ( CALCULATE ( [Tratamentos], fato_tratamento[status] IN { "Failed", "Not Tolerated" } ), [Tratamentos] )
-		formatString: 0.0%
-		displayFolder: Clínico
-		lineageTag: 5a3d94fe-297a-4554-bddd-64472f747943
-
-	measure '% Tratamentos Recusados' = DIVIDE ( CALCULATE ( [Tratamentos], fato_tratamento[status] = "Declined" ), [Tratamentos] )
-		formatString: 0.0%
-		displayFolder: Clínico
-		lineageTag: aadb97fe-42af-4e3f-b8fe-293824716122
-
 	column sk_visita
 		dataType: int64
 		isHidden

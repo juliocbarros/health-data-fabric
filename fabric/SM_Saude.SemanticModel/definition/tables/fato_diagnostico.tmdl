@@ -2,21 +2,6 @@ table fato_diagnostico
 	lineageTag: c228617d-3257-4f22-ab83-0d66a453c9b8
 	sourceLineageTag: [Gold].[fato_diagnostico]
 
-	measure Diagnósticos = COUNTROWS ( fato_diagnostico )
-		formatString: #,0
-		displayFolder: Clínico
-		lineageTag: c52fa5bd-6144-4b95-98f4-28b07f081a94
-
-	measure 'Diagnósticos por Visita' = DIVIDE ( [Diagnósticos], DISTINCTCOUNT ( fato_diagnostico[sk_visita] ) )
-		formatString: #,0.00
-		displayFolder: Clínico
-		lineageTag: 91a9521d-e55a-4770-8622-1329bb926c37
-
-	measure 'Diagnósticos Crônicos' = CALCULATE ( [Diagnósticos], fato_diagnostico[status] = "Chronic" )
-		formatString: #,0
-		displayFolder: Clínico
-		lineageTag: d7e05573-c4c8-48dc-8108-fcdc27ef1772
-
 	column sk_visita
 		dataType: int64
 		isHidden

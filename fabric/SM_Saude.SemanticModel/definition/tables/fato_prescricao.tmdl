@@ -2,22 +2,6 @@ table fato_prescricao
 	lineageTag: bace43a6-0e78-4ccb-ab29-8ff3137a1af4
 	sourceLineageTag: [Gold].[fato_prescricao]
 
-	measure Prescrições = COUNTROWS ( fato_prescricao )
-		formatString: #,0
-		displayFolder: Clínico
-		lineageTag: f6bb80f7-7425-42fd-9433-3c8d012a66c8
-
-	/// Estimativa: quantidade x custo da embalagem.
-	measure 'Custo Estimado de Medicamentos' = SUM ( fato_prescricao[custo_estimado] )
-		formatString: #,0.00
-		displayFolder: Clínico
-		lineageTag: c254ac72-8f51-4a36-a77d-b7b1a8786dc3
-
-	measure 'Medicamentos Prescritos (distintos)' = DISTINCTCOUNT ( fato_prescricao[sk_medicamento] )
-		formatString: #,0
-		displayFolder: Clínico
-		lineageTag: 8907afb5-4e29-47a2-9f5c-80ceed4b8eea
-
 	column sk_visita
 		dataType: int64
 		isHidden

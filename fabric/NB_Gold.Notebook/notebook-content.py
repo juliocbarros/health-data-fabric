@@ -260,6 +260,10 @@ vis = s("vist").select(
     F.col("VTYPE_DES").alias("tipo"),
     F.col("VSTAT_DES").alias("status"),
     F.col("REFR_ORIGEM").alias("origem"),
+    F.when(F.col("REFR_ORIGEM") == "AGENDAMENTO", "Agendamento")
+     .when(F.col("REFR_ORIGEM") == "E", "Sem agendamento (E)")
+     .when(F.col("REFR_ORIGEM") == "W", "Sem agendamento (W)")
+     .otherwise("Não informado").alias("origem_descricao"),
     F.col("REFR_DUPLICADO").alias("num_visita_repetido"))
 gravar(vis, "fato_visita")
 
