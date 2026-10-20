@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "BI_Health"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "fd8de8c7-f795-9470-44f4-fc794b37a116"
+  }
+}

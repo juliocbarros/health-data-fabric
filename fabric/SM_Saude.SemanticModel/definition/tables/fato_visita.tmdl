@@ -154,6 +154,12 @@ table fato_visita
 
 		annotation SummarizationSetBy = Automatic
 
+	column origem_descricao
+		dataType: string
+		lineageTag: 2da7aedb-aaeb-47f7-b126-bd88adfd4496
+		summarizeBy: none
+		sourceColumn: origem_descricao
+
 	partition fato_visita = entity
 		mode: directLake
 		source

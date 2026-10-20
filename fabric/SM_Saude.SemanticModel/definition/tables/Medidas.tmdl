@@ -260,6 +260,23 @@ table Medidas
 		displayFolder: Visitas
 		lineageTag: 37be026f-cf29-4e9f-8790-8d74b19de360
 
+	/// Texto de alerta para o card de faturas negadas: Atenção a partir de 10%.
+	measure 'Status Faturas Negadas' =
+			VAR p = [% Faturas Negadas pelo Seguro]
+			VAR n = ROUND ( DIVIDE ( 1, p ), 0 )
+			RETURN
+			    IF (
+			        NOT ISBLANK ( p ),
+			        IF ( p >= 0.10, "⚠ Atenção · ", "✓ Normal · " ) & "1 em cada " & n & " faturas"
+			    )
+		displayFolder: Financeiro
+		lineageTag: c43e9e84-b9df-4573-be55-a9687e4c5ce6
+
+	/// Rótulo do ticket médio para o card de faturas negadas.
+	measure 'Ticket Médio Texto' = "Ticket médio por visita: " & FORMAT ( [Ticket Médio por Visita], "#,0.00" )
+		displayFolder: Financeiro
+		lineageTag: 62ef779e-ffeb-46f3-b9cd-fa069709d571
+
 	column x
 		isHidden
 		isNameInferred
