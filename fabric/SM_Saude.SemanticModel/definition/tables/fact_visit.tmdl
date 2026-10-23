@@ -1,8 +1,8 @@
-table fato_visita
+table fact_visit
 	lineageTag: 9c3336dd-4a93-4ceb-a277-fe795dc34f11
 	sourceLineageTag: [Gold].[fato_visita]
 
-	column sk_visita
+	column sk_visit
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -13,7 +13,7 @@ table fato_visita
 
 		annotation SummarizationSetBy = Automatic
 
-	column num_visita
+	column visit_number
 		dataType: string
 		lineageTag: 69ac8818-5322-4438-bb56-a7232a01fd72
 		sourceLineageTag: num_visita
@@ -22,7 +22,7 @@ table fato_visita
 
 		annotation SummarizationSetBy = Automatic
 
-	column sk_paciente
+	column sk_patient
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -33,7 +33,7 @@ table fato_visita
 
 		annotation SummarizationSetBy = Automatic
 
-	column sk_sala
+	column sk_room
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -44,7 +44,7 @@ table fato_visita
 
 		annotation SummarizationSetBy = Automatic
 
-	column equipe_medica
+	column medical_team
 		dataType: string
 		lineageTag: 50ad4b65-6b99-4811-8116-237d6a0937ff
 		sourceLineageTag: equipe_medica
@@ -53,7 +53,7 @@ table fato_visita
 
 		annotation SummarizationSetBy = Automatic
 
-	column data_entrada_key
+	column admission_date_key
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -64,7 +64,7 @@ table fato_visita
 
 		annotation SummarizationSetBy = Automatic
 
-	column data_saida_key
+	column discharge_date_key
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -75,7 +75,7 @@ table fato_visita
 
 		annotation SummarizationSetBy = Automatic
 
-	column data_hora_entrada
+	column admission_datetime
 		dataType: dateTime
 		formatString: General Date
 		lineageTag: decae685-0c18-47c0-b42c-7290f5b942f7
@@ -85,7 +85,7 @@ table fato_visita
 
 		annotation SummarizationSetBy = Automatic
 
-	column data_hora_saida
+	column discharge_datetime
 		dataType: dateTime
 		formatString: General Date
 		lineageTag: d7e3b972-86bc-42e3-87e1-1261e3e66ef3
@@ -95,7 +95,7 @@ table fato_visita
 
 		annotation SummarizationSetBy = Automatic
 
-	column permanencia_dias
+	column length_of_stay_days
 		dataType: double
 		lineageTag: 01ba9c02-c1cd-4bd1-92fa-36de4ed4d378
 		sourceLineageTag: permanencia_dias
@@ -106,7 +106,7 @@ table fato_visita
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column tipo
+	column type
 		dataType: string
 		lineageTag: b0d0d3a2-ed65-4ed6-bd89-89986f2812f5
 		sourceLineageTag: tipo
@@ -124,7 +124,7 @@ table fato_visita
 
 		annotation SummarizationSetBy = Automatic
 
-	column origem
+	column source
 		dataType: string
 		lineageTag: 1222c691-d5b5-4636-b069-cf13698b1d56
 		sourceLineageTag: origem
@@ -133,7 +133,7 @@ table fato_visita
 
 		annotation SummarizationSetBy = Automatic
 
-	column num_visita_repetido
+	column duplicate_visit_number
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: b2a6a105-1bda-4d1b-808e-6c0cddf849f3
@@ -143,7 +143,7 @@ table fato_visita
 
 		annotation SummarizationSetBy = Automatic
 
-	column _data_carga_gold
+	column _gold_load_date
 		dataType: dateTime
 		isHidden
 		formatString: General Date
@@ -154,7 +154,7 @@ table fato_visita
 
 		annotation SummarizationSetBy = Automatic
 
-	column origem_descricao
+	column source_description
 		dataType: string
 		lineageTag: 2da7aedb-aaeb-47f7-b126-bd88adfd4496
 		summarizeBy: none

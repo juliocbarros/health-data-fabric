@@ -1,8 +1,8 @@
-table fato_diagnostico
+table fact_diagnosis
 	lineageTag: c228617d-3257-4f22-ab83-0d66a453c9b8
 	sourceLineageTag: [Gold].[fato_diagnostico]
 
-	column sk_visita
+	column sk_visit
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -13,7 +13,7 @@ table fato_diagnostico
 
 		annotation SummarizationSetBy = Automatic
 
-	column num_visita
+	column visit_number
 		dataType: string
 		lineageTag: 49a3d3ed-e656-47a2-b261-534a7e52c896
 		sourceLineageTag: num_visita
@@ -22,7 +22,7 @@ table fato_diagnostico
 
 		annotation SummarizationSetBy = Automatic
 
-	column sk_paciente
+	column sk_patient
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -33,7 +33,7 @@ table fato_diagnostico
 
 		annotation SummarizationSetBy = Automatic
 
-	column sk_sala
+	column sk_room
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -44,7 +44,7 @@ table fato_diagnostico
 
 		annotation SummarizationSetBy = Automatic
 
-	column data_key
+	column date_key
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -55,7 +55,7 @@ table fato_diagnostico
 
 		annotation SummarizationSetBy = Automatic
 
-	column sequencia
+	column sequence
 		dataType: int64
 		formatString: 0
 		lineageTag: cd51add4-993c-4ebe-8b61-dc1742c0226b
@@ -65,7 +65,7 @@ table fato_diagnostico
 
 		annotation SummarizationSetBy = Automatic
 
-	column cod_diagnostico
+	column diagnosis_code
 		dataType: int64
 		formatString: 0
 		lineageTag: ca00575d-b3a9-4715-8d79-5a15e20caa1d
@@ -75,7 +75,7 @@ table fato_diagnostico
 
 		annotation SummarizationSetBy = Automatic
 
-	column diagnostico
+	column diagnosis
 		dataType: string
 		lineageTag: a32ad800-cd24-4d81-8fe2-c757b7d274d2
 		sourceLineageTag: diagnostico
@@ -93,7 +93,7 @@ table fato_diagnostico
 
 		annotation SummarizationSetBy = Automatic
 
-	column conduta_recomendada
+	column recommended_action
 		dataType: string
 		lineageTag: 51bb8cdd-aeab-48c4-a22a-c4ad7c7f5838
 		sourceLineageTag: conduta_recomendada
@@ -102,7 +102,7 @@ table fato_diagnostico
 
 		annotation SummarizationSetBy = Automatic
 
-	column _data_carga_gold
+	column _gold_load_date
 		dataType: dateTime
 		isHidden
 		formatString: General Date

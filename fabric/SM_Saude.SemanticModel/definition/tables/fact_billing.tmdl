@@ -1,8 +1,8 @@
-table fato_faturamento
+table fact_billing
 	lineageTag: a25fe3d3-d112-43f8-992a-816544a93243
 	sourceLineageTag: [Gold].[fato_faturamento]
 
-	column sk_fatura
+	column sk_invoice
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -13,7 +13,7 @@ table fato_faturamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column sk_visita
+	column sk_visit
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -24,7 +24,7 @@ table fato_faturamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column num_fatura
+	column invoice_number
 		dataType: string
 		lineageTag: b7856761-4e91-480b-b1ae-56af0d3d09cb
 		sourceLineageTag: num_fatura
@@ -33,7 +33,7 @@ table fato_faturamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column sk_paciente
+	column sk_patient
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -44,7 +44,7 @@ table fato_faturamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column data_emissao_key
+	column issue_date_key
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -55,7 +55,7 @@ table fato_faturamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column tipo_fatura
+	column invoice_type
 		dataType: string
 		lineageTag: 2d9b667b-8cc4-4029-aa92-5508a6090524
 		sourceLineageTag: tipo_fatura
@@ -64,7 +64,7 @@ table fato_faturamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column valor_fatura
+	column invoice_amount
 		dataType: double
 		lineageTag: 5b2366d6-3abc-4e73-93a8-c2c183bbee33
 		sourceLineageTag: valor_fatura
@@ -84,7 +84,7 @@ table fato_faturamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column valor_pago_paciente
+	column patient_paid_amount
 		dataType: double
 		lineageTag: 888055e0-ae14-43ae-82d2-e48c5c85ada5
 		sourceLineageTag: valor_pago_paciente
@@ -95,7 +95,7 @@ table fato_faturamento
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column _data_carga_gold
+	column _gold_load_date
 		dataType: dateTime
 		isHidden
 		formatString: General Date

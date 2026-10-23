@@ -1,8 +1,8 @@
-table fato_estoque_mensal
+table fact_monthly_inventory
 	lineageTag: 79ed4fb6-b046-4e5a-8a9a-e848cc5438f6
 	sourceLineageTag: [Gold].[fato_estoque_mensal]
 
-	column sk_medicamento
+	column sk_medication
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -13,7 +13,7 @@ table fato_estoque_mensal
 
 		annotation SummarizationSetBy = Automatic
 
-	column mes_key
+	column month_key
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -24,7 +24,7 @@ table fato_estoque_mensal
 
 		annotation SummarizationSetBy = Automatic
 
-	column estoque_inicial
+	column opening_stock
 		dataType: double
 		lineageTag: 47807c7c-1c99-467d-9618-1cd1374568d8
 		sourceLineageTag: estoque_inicial
@@ -35,7 +35,7 @@ table fato_estoque_mensal
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column estoque_final
+	column closing_stock
 		dataType: double
 		lineageTag: ddf0cb7a-23d1-42d3-8133-1280d5b8a8ec
 		sourceLineageTag: estoque_final
@@ -46,7 +46,7 @@ table fato_estoque_mensal
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column qtd_recebida
+	column qty_received
 		dataType: double
 		lineageTag: 8ad65341-3857-4957-b31f-78efca199a91
 		sourceLineageTag: qtd_recebida
@@ -57,7 +57,7 @@ table fato_estoque_mensal
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column qtd_saida
+	column qty_issued
 		dataType: double
 		lineageTag: a0f3bb94-6586-4927-94c0-0eb3cfe14394
 		sourceLineageTag: qtd_saida
@@ -68,7 +68,7 @@ table fato_estoque_mensal
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column dias_com_registro
+	column days_recorded
 		dataType: int64
 		formatString: 0
 		lineageTag: 7acb3923-a0b2-41e6-89c9-874cbd59cac6
@@ -78,7 +78,7 @@ table fato_estoque_mensal
 
 		annotation SummarizationSetBy = Automatic
 
-	column dias_em_ruptura
+	column stockout_days
 		dataType: int64
 		formatString: 0
 		lineageTag: 0b8afa2e-d49f-4d7c-833c-dca270f5c56f
@@ -88,7 +88,7 @@ table fato_estoque_mensal
 
 		annotation SummarizationSetBy = Automatic
 
-	column fechou_negativo
+	column closed_negative
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: 027c7ecb-a52d-4cb1-9f5b-58c771867f0e
@@ -98,7 +98,7 @@ table fato_estoque_mensal
 
 		annotation SummarizationSetBy = Automatic
 
-	column _data_carga_gold
+	column _gold_load_date
 		dataType: dateTime
 		isHidden
 		formatString: General Date

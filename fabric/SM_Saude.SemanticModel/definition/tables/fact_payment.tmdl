@@ -1,8 +1,8 @@
-table fato_pagamento
+table fact_payment
 	lineageTag: 73359407-353b-47fd-8451-32c5f6c58dcb
 	sourceLineageTag: [Gold].[fato_pagamento]
 
-	column sk_fatura
+	column sk_invoice
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -13,7 +13,7 @@ table fato_pagamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column sk_visita
+	column sk_visit
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -24,7 +24,7 @@ table fato_pagamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column sk_paciente
+	column sk_patient
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -35,7 +35,7 @@ table fato_pagamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column data_pagamento_key
+	column payment_date_key
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -46,7 +46,7 @@ table fato_pagamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column tipo_fatura
+	column invoice_type
 		dataType: string
 		lineageTag: c7ab267e-5b9e-4dc1-96e3-cb03b160d3f9
 		sourceLineageTag: tipo_fatura
@@ -55,7 +55,7 @@ table fato_pagamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column parcela
+	column installment
 		dataType: int64
 		formatString: 0
 		lineageTag: e8f072fd-205a-4906-99bf-5646b1803aaf
@@ -65,7 +65,7 @@ table fato_pagamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column total_parcelas
+	column total_installments
 		dataType: int64
 		formatString: 0
 		lineageTag: 1469e5e9-f449-4064-beaa-322d535c5f64
@@ -75,7 +75,7 @@ table fato_pagamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column valor_total_paciente
+	column patient_total_amount
 		dataType: double
 		lineageTag: 82c2b8b9-7130-4aff-bddd-9f4592178a90
 		sourceLineageTag: valor_total_paciente
@@ -86,7 +86,7 @@ table fato_pagamento
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column valor_parcela
+	column installment_amount
 		dataType: double
 		lineageTag: d8c35733-9646-45d6-a757-5500f7583b71
 		sourceLineageTag: valor_parcela
@@ -97,7 +97,7 @@ table fato_pagamento
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column meio_pagamento
+	column payment_method
 		dataType: string
 		lineageTag: 8730111c-b3be-49b9-93db-ba15790199d1
 		sourceLineageTag: meio_pagamento
@@ -115,7 +115,7 @@ table fato_pagamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column _data_carga_gold
+	column _gold_load_date
 		dataType: dateTime
 		isHidden
 		formatString: General Date

@@ -12,22 +12,22 @@ annotation PBI_QueryOrder = ["DirectLake - LK_Healt_Data_Project"]
 
 annotation PBI_ProTooling = ["DirectLakeOnOneLakeInWeb","MCP-PBIModeling"]
 
-ref table dim_calendario
-ref table dim_departamento
-ref table dim_fornecedor
-ref table dim_funcionario
+ref table dim_calendar
+ref table dim_department
+ref table dim_supplier
+ref table dim_staff
 ref table dim_material
-ref table dim_medicamento
-ref table dim_paciente
-ref table dim_sala
-ref table fato_agendamento
-ref table fato_diagnostico
-ref table fato_estoque_mensal
-ref table fato_faturamento
-ref table fato_fornecimento
-ref table fato_pagamento
-ref table fato_prescricao
-ref table fato_tratamento
-ref table fato_visita
-ref table Medidas
+ref table dim_medication
+ref table dim_patient
+ref table dim_room
+ref table fact_appointment
+ref table fact_diagnosis
+ref table fact_monthly_inventory
+ref table fact_billing
+ref table fact_supply
+ref table fact_payment
+ref table fact_prescription
+ref table fact_treatment
+ref table fact_visit
+ref table _Measures
 

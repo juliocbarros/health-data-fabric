@@ -1,8 +1,8 @@
-table dim_fornecedor
+table dim_supplier
 	lineageTag: 99782850-96ad-4bad-9040-21e3046cfe41
 	sourceLineageTag: [Gold].[dim_fornecedor]
 
-	column sk_fornecedor
+	column sk_supplier
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -22,7 +22,7 @@ table dim_fornecedor
 
 		annotation SummarizationSetBy = Automatic
 
-	column fornecedor
+	column supplier
 		dataType: string
 		lineageTag: ab7e0297-423e-4925-84e6-6df538d7e6d2
 		sourceLineageTag: fornecedor
@@ -31,7 +31,7 @@ table dim_fornecedor
 
 		annotation SummarizationSetBy = Automatic
 
-	column tipo
+	column type
 		dataType: string
 		lineageTag: d3c519f8-28ee-4204-89c3-b81443cc8086
 		sourceLineageTag: tipo
@@ -40,7 +40,7 @@ table dim_fornecedor
 
 		annotation SummarizationSetBy = Automatic
 
-	column pais
+	column country
 		dataType: string
 		lineageTag: 751be144-e84c-4514-9cab-025874228860
 		sourceLineageTag: pais
@@ -58,7 +58,7 @@ table dim_fornecedor
 
 		annotation SummarizationSetBy = Automatic
 
-	column _data_carga_gold
+	column _gold_load_date
 		dataType: dateTime
 		isHidden
 		formatString: General Date

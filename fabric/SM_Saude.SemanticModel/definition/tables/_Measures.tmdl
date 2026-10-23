@@ -1,0 +1,288 @@
+/// Tabela para agrupar as medidas do modelo.
+table _Measures
+	lineageTag: 619b6ad6-77ff-4bd9-a1b6-ee09cabc3526
+
+	/// Total de agendamentos.
+	measure Appointments = COUNTROWS ( fact_appointment )
+		formatString: #,0
+		displayFolder: Appointments
+		lineageTag: 2953d7a4-3236-4e34-8010-88ed313e97e7
+
+	/// Status Completed.
+	measure 'Completed Appointments' = SUM ( fact_appointment[attended] )
+		formatString: #,0
+		displayFolder: Appointments
+		lineageTag: e5c31a72-cf4e-4160-9fab-03649c77e614
+
+	/// Status No show.
+	measure No-Shows = SUM ( fact_appointment[no_show] )
+		formatString: #,0
+		displayFolder: Appointments
+		lineageTag: ac461fc1-e4f1-4a6f-b7be-790859f51a2f
+
+	/// Status Cancelled.
+	measure Cancellations = SUM ( fact_appointment[cancelled] )
+		formatString: #,0
+		displayFolder: Appointments
+		lineageTag: 55dd8b4f-661d-4253-8a1c-02c0699d5599
+
+	/// Realizados / (realizados + faltas). Ignora futuros e cancelados.
+	measure 'Attendance Rate' = DIVIDE ( [Completed Appointments], [Completed Appointments] + [No-Shows] )
+		formatString: 0.0%
+		displayFolder: Appointments
+		lineageTag: 596712ac-d55a-4c6b-a582-6c875ba84fd8
+
+	measure 'No-Show Rate' = DIVIDE ( [No-Shows], [Completed Appointments] + [No-Shows] )
+		formatString: 0.0%
+		displayFolder: Appointments
+		lineageTag: 49aa8547-e31b-48e5-be16-6f46d47f7390
+
+	/// Cancelados / agendamentos já passados.
+	measure 'Cancellation Rate' = DIVIDE ( [Cancellations], CALCULATE ( [Appointments], fact_appointment[status] <> "In Future" ) )
+		formatString: 0.0%
+		displayFolder: Appointments
+		lineageTag: 24c1d8e9-5a48-456f-a9d9-67730737331f
+
+	measure 'Upcoming Appointments' = CALCULATE ( [Appointments], fact_appointment[status] = "In Future" )
+		formatString: #,0
+		displayFolder: Appointments
+		lineageTag: 5bbd2bc7-9242-4ab8-a8b8-e848be5b9897
+
+	/// Usa a relação inativa; para analisar por quem agendou.
+	measure 'Appointments Booked by Attendant' = CALCULATE ( [Appointments], USERELATIONSHIP ( fact_appointment[sk_attendant], dim_staff[sk_staff] ) )
+		formatString: #,0
+		displayFolder: Appointments
+		lineageTag: ad51c90d-fbe4-4116-991b-3ca89f3846ca
+
+	measure Diagnoses = COUNTROWS ( fact_diagnosis )
+		formatString: #,0
+		displayFolder: Clinical
+		lineageTag: c52fa5bd-6144-4b95-98f4-28b07f081a94
+
+	measure 'Diagnoses per Visit' = DIVIDE ( [Diagnoses], DISTINCTCOUNT ( fact_diagnosis[sk_visit] ) )
+		formatString: #,0.00
+		displayFolder: Clinical
+		lineageTag: 91a9521d-e55a-4770-8622-1329bb926c37
+
+	measure 'Chronic Diagnoses' = CALCULATE ( [Diagnoses], fact_diagnosis[status] = "Chronic" )
+		formatString: #,0
+		displayFolder: Clinical
+		lineageTag: d7e05573-c4c8-48dc-8108-fcdc27ef1772
+
+	/// Posição no último mês do filtro (não soma meses).
+	measure 'Closing Stock' =
+			VAR LastMonth = MAX ( fact_monthly_inventory[month_key] )
+			RETURN
+			    CALCULATE ( SUM ( fact_monthly_inventory[closing_stock] ), fact_monthly_inventory[month_key] = LastMonth )
+		formatString: #,0
+		displayFolder: Supply Chain
+		lineageTag: 238ee282-1786-4967-b747-f48a04550169
+
+	measure 'Stock Received' = SUM ( fact_monthly_inventory[qty_received] )
+		formatString: #,0
+		displayFolder: Supply Chain
+		lineageTag: f7fe7a68-4f11-4058-b186-77d16723e027
+
+	measure 'Stock Issued' = SUM ( fact_monthly_inventory[qty_issued] )
+		formatString: #,0
+		displayFolder: Supply Chain
+		lineageTag: 8fe62a73-2f9b-460d-a171-48c36ce97223
+
+	/// Dias com estoque zerado ou negativo.
+	measure '% Stockout Days' = DIVIDE ( SUM ( fact_monthly_inventory[stockout_days] ), SUM ( fact_monthly_inventory[days_recorded] ) )
+		formatString: 0.0%
+		displayFolder: Supply Chain
+		lineageTag: 27027460-6552-4a44-afac-d664e3c671ff
+
+	measure 'Medications with Negative Stock' = CALCULATE ( DISTINCTCOUNT ( fact_monthly_inventory[sk_medication] ), fact_monthly_inventory[closed_negative] = TRUE () )
+		formatString: #,0
+		displayFolder: Supply Chain
+		lineageTag: 809417c4-5935-4239-87ee-6e4583856fd2
+
+	measure Invoices = COUNTROWS ( fact_billing )
+		formatString: #,0
+		displayFolder: Financial
+		lineageTag: c571df61-32dd-469c-95e1-84e6aab41157
+
+	/// Atendimento + medicamentos, pela data de emissão.
+	measure 'Billed Amount' = SUM ( fact_billing[invoice_amount] )
+		formatString: #,0.00
+		displayFolder: Financial
+		lineageTag: e29e068b-f8a4-491b-b729-8520a4b4e292
+
+	measure 'Average Ticket per Visit' = DIVIDE ( [Billed Amount], DISTINCTCOUNT ( fact_billing[sk_visit] ) )
+		formatString: #,0.00
+		displayFolder: Financial
+		lineageTag: a64da65d-7301-41c9-8a22-3e239cfc7bd1
+
+	/// Parcelas concluídas, atribuídas à data de emissão da fatura.
+	measure 'Patient Paid Amount' = SUM ( fact_billing[patient_paid_amount] )
+		formatString: #,0.00
+		displayFolder: Financial
+		lineageTag: 4816b950-1bd2-4ec5-ab50-69bd9e2cc9a6
+
+	measure '% Invoices Denied by Insurance' = DIVIDE ( CALCULATE ( [Invoices], fact_billing[status] = "Insurance Denied" ), [Invoices] )
+		formatString: 0.0%
+		displayFolder: Financial
+		lineageTag: 60174c72-a333-49fe-95b9-186694bb3823
+
+	/// Valor considerado perdido.
+	measure 'Write-Off Amount' = CALCULATE ( [Billed Amount], fact_billing[status] = "Write-Off" )
+		formatString: #,0.00
+		displayFolder: Financial
+		lineageTag: c67ac9d9-77ce-4c6d-b6f5-2ae0329ecc63
+
+	measure 'Amount Under Insurance Review' = CALCULATE ( [Billed Amount], fact_billing[status] = "Pending Insurance Review" )
+		formatString: #,0.00
+		displayFolder: Financial
+		lineageTag: bd2d33eb-f825-42e8-86f2-c567fa99a787
+
+	measure 'Batches Received' = COUNTROWS ( fact_supply )
+		formatString: #,0
+		displayFolder: Supply Chain
+		lineageTag: 608d8a5d-4899-4533-8a0a-109947b2e07f
+
+	/// Custo total informado nos pagamentos ao fornecedor.
+	measure 'Supply Cost' = SUM ( fact_supply[total_cost] )
+		formatString: #,0.00
+		displayFolder: Supply Chain
+		lineageTag: 4bc482c5-4d63-4202-ab5e-d104d4bd0fef
+
+	measure 'Amount Paid to Suppliers' = SUM ( fact_supply[amount_paid] )
+		formatString: #,0.00
+		displayFolder: Supply Chain
+		lineageTag: 11d8e3c3-3028-4312-8f75-54a4f61eabcc
+
+	measure 'Balance Due to Suppliers' = SUM ( fact_supply[balance_due] )
+		formatString: #,0.00
+		displayFolder: Supply Chain
+		lineageTag: 0d1a6042-78bc-42e8-a61d-5ca55940b0fb
+
+	/// Quantidade fornecida que não foi recebida.
+	measure '% Receipt Discrepancy' = DIVIDE ( SUM ( fact_supply[qty_discrepancy] ), SUM ( fact_supply[qty_supplied] ) )
+		formatString: 0.0%
+		displayFolder: Supply Chain
+		lineageTag: 44301f8c-6501-4849-b137-670685abe102
+
+	measure 'Avg Days to Check' = AVERAGE ( fact_supply[days_to_check] )
+		formatString: #,0.0
+		displayFolder: Supply Chain
+		lineageTag: 1ea53711-eef7-4e05-b384-8689779f554d
+
+	/// Pela data de pagamento.
+	measure 'Amount Received' = CALCULATE ( SUM ( fact_payment[installment_amount] ), fact_payment[status] = "Completed" )
+		formatString: #,0.00
+		displayFolder: Financial
+		lineageTag: c4307f96-664a-473c-ac2e-8a3cfb6feb88
+
+	measure 'Amount Pending' = CALCULATE ( SUM ( fact_payment[installment_amount] ), fact_payment[status] = "Pending" )
+		formatString: #,0.00
+		displayFolder: Financial
+		lineageTag: 1e2d32e1-8288-4b78-8824-1fa568f7c0d1
+
+	measure '% Pending Installments' = DIVIDE ( CALCULATE ( COUNTROWS ( fact_payment ), fact_payment[status] = "Pending" ), COUNTROWS ( fact_payment ) )
+		formatString: 0.0%
+		displayFolder: Financial
+		lineageTag: 04f713b8-3b37-4a0f-ab7a-fb886d69977a
+
+	measure Prescriptions = COUNTROWS ( fact_prescription )
+		formatString: #,0
+		displayFolder: Clinical
+		lineageTag: f6bb80f7-7425-42fd-9433-3c8d012a66c8
+
+	/// Estimativa: quantidade x custo da embalagem.
+	measure 'Estimated Medication Cost' = SUM ( fact_prescription[estimated_cost] )
+		formatString: #,0.00
+		displayFolder: Clinical
+		lineageTag: c254ac72-8f51-4a36-a77d-b7b1a8786dc3
+
+	measure 'Distinct Medications Prescribed' = DISTINCTCOUNT ( fact_prescription[sk_medication] )
+		formatString: #,0
+		displayFolder: Clinical
+		lineageTag: 8907afb5-4e29-47a2-9f5c-80ceed4b8eea
+
+	measure Treatments = COUNTROWS ( fact_treatment )
+		formatString: #,0
+		displayFolder: Clinical
+		lineageTag: 8451ce6d-30f0-4058-91fe-865d233754dc
+
+	/// Falhou ou não tolerado.
+	measure '% Failed Treatments' = DIVIDE ( CALCULATE ( [Treatments], fact_treatment[status] IN { "Failed", "Not Tolerated" } ), [Treatments] )
+		formatString: 0.0%
+		displayFolder: Clinical
+		lineageTag: 5a3d94fe-297a-4554-bddd-64472f747943
+
+	measure '% Declined Treatments' = DIVIDE ( CALCULATE ( [Treatments], fact_treatment[status] = "Declined" ), [Treatments] )
+		formatString: 0.0%
+		displayFolder: Clinical
+		lineageTag: aadb97fe-42af-4e3f-b8fe-293824716122
+
+	/// Por data de entrada.
+	measure Visits = COUNTROWS ( fact_visit )
+		formatString: #,0
+		displayFolder: Visits
+		lineageTag: 468c4a8e-ad8c-4c64-9ec6-c207e6faf814
+
+	measure 'Patients Seen' = DISTINCTCOUNT ( fact_visit[sk_patient] )
+		formatString: #,0
+		displayFolder: Visits
+		lineageTag: 68e7e988-bb62-4226-a9c4-c282212bfe56
+
+	measure 'Avg Length of Stay (days)' = AVERAGE ( fact_visit[length_of_stay_days] )
+		formatString: #,0.0
+		displayFolder: Visits
+		lineageTag: 664e92e8-598a-47ec-a663-94a93db14c95
+
+	measure 'Admitted Visits' = CALCULATE ( [Visits], fact_visit[status] = "Admitted" )
+		formatString: #,0
+		displayFolder: Visits
+		lineageTag: f841cd85-1fc7-40f0-9376-414674f27db6
+
+	measure 'Follow-Up Visits' = CALCULATE ( [Visits], fact_visit[status] = "Need Follow-Up" )
+		formatString: #,0
+		displayFolder: Visits
+		lineageTag: e3bea4bc-3a5e-4fee-a250-20574ca7059a
+
+	/// Visitas que vieram de agendamento.
+	measure '% Scheduled Visits' = DIVIDE ( CALCULATE ( [Visits], fact_visit[source] = "AGENDAMENTO" ), [Visits] )
+		formatString: 0.0%
+		displayFolder: Visits
+		lineageTag: 0c985dde-1055-47a4-9c06-eeaf2944d8c2
+
+	measure 'Visits per Patient' = DIVIDE ( [Visits], [Patients Seen] )
+		formatString: #,0.00
+		displayFolder: Visits
+		lineageTag: 7137d043-ca8a-4645-b94e-5850fee8494e
+
+	/// Conta pela data de saída (relação inativa).
+	measure 'Discharges by Discharge Date' = CALCULATE ( [Visits], USERELATIONSHIP ( fact_visit[discharge_date_key], dim_calendar[date_key] ) )
+		formatString: #,0
+		displayFolder: Visits
+		lineageTag: 37be026f-cf29-4e9f-8790-8d74b19de360
+
+	/// Alert text for the denied invoices card: Attention from 10% upwards.
+	measure 'Denied Invoices Status' =
+			VAR p = [% Invoices Denied by Insurance]
+			VAR n = ROUND ( DIVIDE ( 1, p ), 0 )
+			RETURN
+			    IF (
+			        NOT ISBLANK ( p ),
+			        IF ( p >= 0.10, "⚠ Attention · ", "✓ Normal · " ) & "1 in every " & n & " invoices"
+			    )
+		displayFolder: Financial
+		lineageTag: c43e9e84-b9df-4573-be55-a9687e4c5ce6
+
+	/// Average ticket label for the denied invoices card.
+	measure 'Average Ticket Label' = "Average ticket per visit: " & FORMAT ( [Average Ticket per Visit], "#,0.00" )
+		displayFolder: Financial
+		lineageTag: 62ef779e-ffeb-46f3-b9cd-fa069709d571
+
+	column x
+		isHidden
+		isNameInferred
+		sourceColumn: [x]
+
+	partition Medidas = calculated
+		mode: import
+		source = ROW ( "x", BLANK () )
+

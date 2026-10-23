@@ -1,8 +1,8 @@
-table fato_fornecimento
+table fact_supply
 	lineageTag: bbcbb814-1c0b-4308-afea-df5ae7e48c87
 	sourceLineageTag: [Gold].[fato_fornecimento]
 
-	column num_fornecimento
+	column supply_number
 		dataType: string
 		lineageTag: ae46f498-5535-454d-8863-4b6bd3f3e784
 		sourceLineageTag: num_fornecimento
@@ -22,7 +22,7 @@ table fato_fornecimento
 
 		annotation SummarizationSetBy = Automatic
 
-	column sk_fornecedor
+	column sk_supplier
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -33,7 +33,7 @@ table fato_fornecimento
 
 		annotation SummarizationSetBy = Automatic
 
-	column sk_recebedor
+	column sk_receiver
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -44,7 +44,7 @@ table fato_fornecimento
 
 		annotation SummarizationSetBy = Automatic
 
-	column tipo_material
+	column material_type
 		dataType: string
 		lineageTag: 82ab8431-4e7c-4430-a761-af3199b76c7e
 		sourceLineageTag: tipo_material
@@ -53,7 +53,7 @@ table fato_fornecimento
 
 		annotation SummarizationSetBy = Automatic
 
-	column data_fabricacao_key
+	column manufacture_date_key
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -64,7 +64,7 @@ table fato_fornecimento
 
 		annotation SummarizationSetBy = Automatic
 
-	column data_recebimento_key
+	column receipt_date_key
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -75,7 +75,7 @@ table fato_fornecimento
 
 		annotation SummarizationSetBy = Automatic
 
-	column data_conferencia_key
+	column check_date_key
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -86,7 +86,7 @@ table fato_fornecimento
 
 		annotation SummarizationSetBy = Automatic
 
-	column qtd_fornecida
+	column qty_supplied
 		dataType: double
 		lineageTag: 12558018-d17d-4db4-a659-43cc7a04df7a
 		sourceLineageTag: qtd_fornecida
@@ -97,7 +97,7 @@ table fato_fornecimento
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column qtd_recebida
+	column qty_received
 		dataType: double
 		lineageTag: bdec0e0e-40a9-4850-a974-881ce63baabc
 		sourceLineageTag: qtd_recebida
@@ -108,7 +108,7 @@ table fato_fornecimento
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column qtd_divergente
+	column qty_discrepancy
 		dataType: double
 		lineageTag: ed0ff42e-981d-4f1c-99c6-07d9ec4ddae3
 		sourceLineageTag: qtd_divergente
@@ -119,7 +119,7 @@ table fato_fornecimento
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column unidade
+	column unit
 		dataType: string
 		lineageTag: dde86880-70d3-4db4-97a4-fad06166c9ea
 		sourceLineageTag: unidade
@@ -128,7 +128,7 @@ table fato_fornecimento
 
 		annotation SummarizationSetBy = Automatic
 
-	column custo_unitario
+	column unit_cost
 		dataType: double
 		lineageTag: 88110bc5-493a-443c-801e-ee31b519c444
 		sourceLineageTag: custo_unitario
@@ -139,7 +139,7 @@ table fato_fornecimento
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column dias_ate_conferencia
+	column days_to_check
 		dataType: int64
 		formatString: 0
 		lineageTag: 4508ea6e-9928-44a6-a150-f1179126cfc7
@@ -149,7 +149,7 @@ table fato_fornecimento
 
 		annotation SummarizationSetBy = Automatic
 
-	column custo_total
+	column total_cost
 		dataType: double
 		lineageTag: f9d46f66-937e-4f81-abb0-b78adedf71bb
 		sourceLineageTag: custo_total
@@ -160,7 +160,7 @@ table fato_fornecimento
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column valor_pago
+	column amount_paid
 		dataType: double
 		lineageTag: 8336bd0c-c0f7-4a21-a4c8-d9fd351688a3
 		sourceLineageTag: valor_pago
@@ -171,7 +171,7 @@ table fato_fornecimento
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column saldo_a_pagar
+	column balance_due
 		dataType: double
 		lineageTag: ff12798c-161b-474b-835e-75d51b13781d
 		sourceLineageTag: saldo_a_pagar
@@ -182,7 +182,7 @@ table fato_fornecimento
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column parcelas_pagas
+	column installments_paid
 		dataType: int64
 		formatString: 0
 		lineageTag: 252b53e4-76d3-4207-bcd3-0216bab3a2a4
@@ -192,7 +192,7 @@ table fato_fornecimento
 
 		annotation SummarizationSetBy = Automatic
 
-	column parcelas_combinadas
+	column installments_agreed
 		dataType: int64
 		formatString: 0
 		lineageTag: 2a59a7b3-6001-4bee-af46-3f6998addb10
@@ -202,7 +202,7 @@ table fato_fornecimento
 
 		annotation SummarizationSetBy = Automatic
 
-	column _data_carga_gold
+	column _gold_load_date
 		dataType: dateTime
 		isHidden
 		formatString: General Date

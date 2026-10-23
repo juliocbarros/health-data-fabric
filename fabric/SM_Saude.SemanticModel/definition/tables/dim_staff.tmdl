@@ -1,8 +1,8 @@
-table dim_funcionario
+table dim_staff
 	lineageTag: 45433c1d-0a53-4528-bc74-2917957d678b
 	sourceLineageTag: [Gold].[dim_funcionario]
 
-	column sk_funcionario
+	column sk_staff
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -22,7 +22,7 @@ table dim_funcionario
 
 		annotation SummarizationSetBy = Automatic
 
-	column nome
+	column name
 		dataType: string
 		lineageTag: ae69e387-a398-4e5c-8f61-5effbdef3f1b
 		sourceLineageTag: nome
@@ -31,7 +31,7 @@ table dim_funcionario
 
 		annotation SummarizationSetBy = Automatic
 
-	column genero
+	column gender
 		dataType: string
 		lineageTag: f4ba1e6c-cf65-49f8-bcd2-bb5a9ab9f6e1
 		sourceLineageTag: genero
@@ -40,7 +40,7 @@ table dim_funcionario
 
 		annotation SummarizationSetBy = Automatic
 
-	column cargo
+	column role
 		dataType: string
 		lineageTag: 58071c45-f6ec-4dd1-ba7a-371b52cae754
 		sourceLineageTag: cargo
@@ -49,7 +49,7 @@ table dim_funcionario
 
 		annotation SummarizationSetBy = Automatic
 
-	column sk_departamento
+	column sk_department
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -60,7 +60,7 @@ table dim_funcionario
 
 		annotation SummarizationSetBy = Automatic
 
-	column departamento
+	column department
 		dataType: string
 		lineageTag: 705a4af3-8dab-4a1b-afe3-e09bf42889c3
 		sourceLineageTag: departamento
@@ -69,7 +69,7 @@ table dim_funcionario
 
 		annotation SummarizationSetBy = Automatic
 
-	column situacao
+	column employment_status
 		dataType: string
 		lineageTag: aec89a76-639a-4122-b5e0-f849a0af9757
 		sourceLineageTag: situacao
@@ -78,7 +78,7 @@ table dim_funcionario
 
 		annotation SummarizationSetBy = Automatic
 
-	column data_contratacao
+	column hire_date
 		dataType: dateTime
 		formatString: General Date
 		lineageTag: 7ba3b6e0-fa5a-410b-9551-2adf63892a77
@@ -88,7 +88,7 @@ table dim_funcionario
 
 		annotation SummarizationSetBy = Automatic
 
-	column salario_anual
+	column annual_salary
 		dataType: double
 		lineageTag: 745ce2c1-86cb-4819-9a26-f7358a378cfe
 		sourceLineageTag: salario_anual
@@ -99,7 +99,7 @@ table dim_funcionario
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column _data_carga_gold
+	column _gold_load_date
 		dataType: dateTime
 		isHidden
 		formatString: General Date

@@ -1,8 +1,8 @@
-table dim_sala
+table dim_room
 	lineageTag: 79e9a944-4df1-4444-b0d7-7acf4a68b76e
 	sourceLineageTag: [Gold].[dim_sala]
 
-	column sk_sala
+	column sk_room
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -22,7 +22,7 @@ table dim_sala
 
 		annotation SummarizationSetBy = Automatic
 
-	column sk_departamento
+	column sk_department
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -33,7 +33,7 @@ table dim_sala
 
 		annotation SummarizationSetBy = Automatic
 
-	column departamento
+	column department
 		dataType: string
 		lineageTag: 3ef56802-9c84-4b30-bca0-df099afb3d0b
 		sourceLineageTag: departamento
@@ -42,7 +42,7 @@ table dim_sala
 
 		annotation SummarizationSetBy = Automatic
 
-	column finalidade
+	column purpose
 		dataType: string
 		lineageTag: 72d79a3c-53d6-4ebd-b1ca-c7d1cbb46577
 		sourceLineageTag: finalidade
@@ -51,7 +51,7 @@ table dim_sala
 
 		annotation SummarizationSetBy = Automatic
 
-	column porte
+	column size
 		dataType: string
 		lineageTag: 41d093dd-e224-402f-be37-08d42fed0d65
 		sourceLineageTag: porte
@@ -60,7 +60,7 @@ table dim_sala
 
 		annotation SummarizationSetBy = Automatic
 
-	column capacidade
+	column capacity
 		dataType: int64
 		formatString: 0
 		lineageTag: 9fab1f08-502e-4044-87ed-a887d78fb314
@@ -70,7 +70,7 @@ table dim_sala
 
 		annotation SummarizationSetBy = Automatic
 
-	column _data_carga_gold
+	column _gold_load_date
 		dataType: dateTime
 		isHidden
 		formatString: General Date

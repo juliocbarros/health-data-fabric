@@ -1,9 +1,9 @@
-table dim_calendario
+table dim_calendar
 	lineageTag: 3f2c57e1-218c-43e3-9c2a-0194027727c4
 	sourceLineageTag: [Gold].[dim_calendario]
 	dataCategory: Time
 
-	column data_key
+	column date_key
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -14,7 +14,7 @@ table dim_calendario
 
 		annotation SummarizationSetBy = Automatic
 
-	column data
+	column date
 		dataType: dateTime
 		isUnique
 		formatString: General Date
@@ -25,7 +25,7 @@ table dim_calendario
 
 		annotation SummarizationSetBy = Automatic
 
-	column ano
+	column year
 		dataType: int64
 		formatString: 0
 		lineageTag: 622ed262-b555-4728-953f-0f021876491b
@@ -35,7 +35,7 @@ table dim_calendario
 
 		annotation SummarizationSetBy = Automatic
 
-	column trimestre
+	column quarter
 		dataType: int64
 		formatString: 0
 		lineageTag: 2d230d52-4224-46b4-b866-ff3eb49c0d49
@@ -45,7 +45,7 @@ table dim_calendario
 
 		annotation SummarizationSetBy = Automatic
 
-	column mes
+	column month
 		dataType: int64
 		formatString: 0
 		lineageTag: b8120863-dcd1-478b-86c4-32e0e926732c
@@ -55,17 +55,17 @@ table dim_calendario
 
 		annotation SummarizationSetBy = Automatic
 
-	column nome_mes
+	column month_name
 		dataType: string
 		lineageTag: d68af953-2304-4002-adc0-7cb5af1b3c81
 		sourceLineageTag: nome_mes
 		summarizeBy: none
 		sourceColumn: nome_mes
-		sortByColumn: mes
+		sortByColumn: month
 
 		annotation SummarizationSetBy = Automatic
 
-	column ano_mes
+	column year_month
 		dataType: string
 		lineageTag: 7d20c28e-6ab3-4c16-ad39-32bcc7c96232
 		sourceLineageTag: ano_mes
@@ -74,7 +74,7 @@ table dim_calendario
 
 		annotation SummarizationSetBy = Automatic
 
-	column dia
+	column day
 		dataType: int64
 		formatString: 0
 		lineageTag: eec2dfb8-a0ef-42bb-975b-f59a6ad7f4ca
@@ -84,7 +84,7 @@ table dim_calendario
 
 		annotation SummarizationSetBy = Automatic
 
-	column dia_semana
+	column weekday
 		dataType: int64
 		formatString: 0
 		lineageTag: ff131bd0-1c98-42e0-bce1-8e649e8f9394
@@ -94,17 +94,17 @@ table dim_calendario
 
 		annotation SummarizationSetBy = Automatic
 
-	column nome_dia_semana
+	column weekday_name
 		dataType: string
 		lineageTag: ee017202-31d8-4ff5-95df-adb9d9e2d26f
 		sourceLineageTag: nome_dia_semana
 		summarizeBy: none
 		sourceColumn: nome_dia_semana
-		sortByColumn: dia_semana
+		sortByColumn: weekday
 
 		annotation SummarizationSetBy = Automatic
 
-	column fim_de_semana
+	column is_weekend
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
 		lineageTag: be15887d-6af6-4d8f-b337-690fd1730104
@@ -114,7 +114,7 @@ table dim_calendario
 
 		annotation SummarizationSetBy = Automatic
 
-	column _data_carga_gold
+	column _gold_load_date
 		dataType: dateTime
 		isHidden
 		formatString: General Date
@@ -124,6 +124,20 @@ table dim_calendario
 		sourceColumn: _data_carga_gold
 
 		annotation SummarizationSetBy = Automatic
+
+	column month_year_sort
+		dataType: int64
+		isHidden
+		lineageTag: d58ea536-a1dd-4c29-bc6a-ca01f342278b
+		summarizeBy: none
+		sourceColumn: mes_ano_ordem
+
+	column month_year
+		dataType: string
+		lineageTag: 746394f8-2d8c-4351-a624-309bd703be7f
+		summarizeBy: none
+		sourceColumn: mes_ano
+		sortByColumn: month_year_sort
 
 	partition dim_calendario = entity
 		mode: directLake

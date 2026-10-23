@@ -1,8 +1,8 @@
-table dim_medicamento
+table dim_medication
 	lineageTag: b76de752-fb45-4867-b275-4c62b37324d7
 	sourceLineageTag: [Gold].[dim_medicamento]
 
-	column sk_medicamento
+	column sk_medication
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -22,7 +22,7 @@ table dim_medicamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column medicamento
+	column medication
 		dataType: string
 		lineageTag: 09581a07-0e4c-4bbc-b1b0-e0310d6a22c1
 		sourceLineageTag: medicamento
@@ -31,7 +31,7 @@ table dim_medicamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column classe
+	column class
 		dataType: string
 		lineageTag: 3274e809-85ea-45bd-87e0-86a60d2dd183
 		sourceLineageTag: classe
@@ -40,7 +40,7 @@ table dim_medicamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column forma
+	column form
 		dataType: string
 		lineageTag: 108af60a-c25c-4114-8d77-b96a15c13d92
 		sourceLineageTag: forma
@@ -49,7 +49,7 @@ table dim_medicamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column concentracao
+	column strength
 		dataType: string
 		lineageTag: 8a268f55-f906-411c-ab73-002f164146b6
 		sourceLineageTag: concentracao
@@ -58,7 +58,7 @@ table dim_medicamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column armazenamento
+	column storage
 		dataType: string
 		lineageTag: 3a26413f-789c-46c4-8c54-6c57415a99b8
 		sourceLineageTag: armazenamento
@@ -76,7 +76,7 @@ table dim_medicamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column custo_embalagem
+	column package_cost
 		dataType: double
 		lineageTag: 0b337954-714f-4af4-bd1b-558e5fd81322
 		sourceLineageTag: custo_embalagem
@@ -87,7 +87,7 @@ table dim_medicamento
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column _data_carga_gold
+	column _gold_load_date
 		dataType: dateTime
 		isHidden
 		formatString: General Date

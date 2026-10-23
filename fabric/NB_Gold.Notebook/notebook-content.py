@@ -54,8 +54,10 @@ from pyspark.sql import functions as F, Window as W
 
 SILVER = "Silver"
 GOLD = "Gold"
+NI = "Unknown"
 ANO_INICIO, ANO_FIM = 2023, 2026   # intervalo da dim_calendario (cobre todas as datas dos fatos)
 DATA_REFERENCIA = "2025-09-30"     # data usada para calcular a idade do paciente (fim do período dos dados)
+
 
 spark.sql(f"CREATE SCHEMA IF NOT EXISTS {GOLD}")
 s = lambda t: spark.table(f"{SILVER}.{t}")
@@ -105,9 +107,10 @@ def gravar(df, tabela):
 # CELL ********************
 
 # dim_calendario
-meses = F.array(*[F.lit(m) for m in ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho",
-                                     "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]])
-dias = F.array(*[F.lit(d) for d in ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]])
+meses = F.array(*[F.lit(m) for m in ["January", "February", "March", "April", "May", "June", "July",
+                                     "August", "September", "October", "November", "December"]])
+dias = F.array(*[F.lit(d) for d in ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]])
+abrev = F.array(*[F.lit(m) for m in ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]])
 cal = (spark.sql(f"SELECT explode(sequence(to_date('{ANO_INICIO}-01-01'), to_date('{ANO_FIM}-12-31'), interval 1 day)) AS data")
        .select(
            data_key("data").alias("data_key"),
@@ -117,6 +120,8 @@ cal = (spark.sql(f"SELECT explode(sequence(to_date('{ANO_INICIO}-01-01'), to_dat
            F.month("data").alias("mes"),
            meses[F.month("data") - 1].alias("nome_mes"),
            F.date_format("data", "yyyy-MM").alias("ano_mes"),
+           F.concat(abrev[F.month("data") - 1], F.lit("/"), F.date_format("data", "yy")).alias("mes_ano"),   # ex.: jan/24
+           (F.year("data") * 100 + F.month("data")).alias("mes_ano_ordem"),                                 # ex.: 202401
            F.dayofmonth("data").alias("dia"),
            F.dayofweek("data").alias("dia_semana"),
            dias[F.dayofweek("data") - 1].alias("nome_dia_semana"),
@@ -204,9 +209,9 @@ med = s("mdcn").select(sk("MED_ID").alias("sk_medicamento"), "MED_ID",
 gravar(com_desconhecido(med, "sk_medicamento"), "dim_medicamento")
 
 # dim_material (medicamentos + equipamentos; usada nos fornecimentos)
-mat = (s("mdcn").select(F.col("MED_ID").alias("MAT_SKU"), F.lit("MEDICAMENTO").alias("tipo_material"),
+mat = (s("mdcn").select(F.col("MED_ID").alias("MAT_SKU"), F.lit("Medication").alias("tipo_material"),
                         F.col("MED_NAME").alias("material"), F.col("TYPE_DES").alias("classe"))
-       .unionByName(s("eqpm").select(F.col("EQP_ID").alias("MAT_SKU"), F.lit("EQUIPAMENTO").alias("tipo_material"),
+       .unionByName(s("eqpm").select(F.col("EQP_ID").alias("MAT_SKU"), F.lit("Equipment").alias("tipo_material"),
                                      F.col("EQP_NAME").alias("material"), F.col("TYPE_DES").alias("classe")))
        .select(sk("MAT_SKU").alias("sk_material"), "*"))
 gravar(com_desconhecido(mat, "sk_material"), "dim_material")
@@ -240,6 +245,11 @@ agd = s("appt").select(
     F.col("APT_TIME").alias("data_hora_agendamento"),
     F.col("ATYPE_DES").alias("tipo"),
     F.col("ASTAT_DES").alias("status"),
+    F.when(F.col("ASTAT_DES") == "Completed", "Completed")
+     .when(F.col("ASTAT_DES") == "No show", "No show")
+     .when(F.col("ASTAT_DES") == "Cancelled", "Cancelled")
+     .when(F.col("ASTAT_DES") == "In Future", "Futuro")
+     .otherwise("Não informado").alias("status_descricao"),
     (F.col("ASTAT_DES") == "Completed").cast("int").alias("compareceu"),
     (F.col("ASTAT_DES") == "Cancelled").cast("int").alias("cancelado"),
     (F.col("ASTAT_DES") == "No show").cast("int").alias("faltou"))
@@ -260,10 +270,10 @@ vis = s("vist").select(
     F.col("VTYPE_DES").alias("tipo"),
     F.col("VSTAT_DES").alias("status"),
     F.col("REFR_ORIGEM").alias("origem"),
-    F.when(F.col("REFR_ORIGEM") == "AGENDAMENTO", "Agendamento")
-     .when(F.col("REFR_ORIGEM") == "E", "Sem agendamento (E)")
-     .when(F.col("REFR_ORIGEM") == "W", "Sem agendamento (W)")
-     .otherwise("Não informado").alias("origem_descricao"),
+    F.when(F.col("REFR_ORIGEM") == "AGENDAMENTO", "Scheduled")
+     .when(F.col("REFR_ORIGEM") == "E", "Walk-in (E)")
+     .when(F.col("REFR_ORIGEM") == "W", "Walk-in (W)")
+     .otherwise("Não informado").alias("Unknown"),
     F.col("REFR_DUPLICADO").alias("num_visita_repetido"))
 gravar(vis, "fato_visita")
 
@@ -337,7 +347,7 @@ fat = (s("bill").unionByName(s("mdbl"), allowMissingColumns=True)
        .select(sk("REFR_NO", "PAT_ID", "BTYPE_CD").alias("sk_fatura"),
                sk("REFR_NO", "PAT_ID").alias("sk_visita"), F.col("REFR_NO").alias("num_fatura"),
                sk("PAT_ID").alias("sk_paciente"), data_key("BILL_DATE").alias("data_emissao_key"),
-               F.when(F.col("BTYPE_CD") == "RG", "Atendimento").otherwise("Medicamentos").alias("tipo_fatura"),
+               F.when(F.col("BTYPE_CD") == "RG", "Services").otherwise("Medications").alias("tipo_fatura"),
                F.col("BILL_AMT").alias("valor_fatura"), F.col("BSTAT_DES").alias("status"),
                F.coalesce("valor_pago_paciente", F.lit(0).cast("decimal(18,2)")).alias("valor_pago_paciente")))
 gravar(fat, "fato_faturamento")

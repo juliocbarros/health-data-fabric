@@ -1,8 +1,8 @@
-table fato_prescricao
+table fact_prescription
 	lineageTag: bace43a6-0e78-4ccb-ab29-8ff3137a1af4
 	sourceLineageTag: [Gold].[fato_prescricao]
 
-	column sk_visita
+	column sk_visit
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -13,7 +13,7 @@ table fato_prescricao
 
 		annotation SummarizationSetBy = Automatic
 
-	column num_visita
+	column visit_number
 		dataType: string
 		lineageTag: 98d1cc18-9e79-4435-9e11-f056e6ad37dc
 		sourceLineageTag: num_visita
@@ -22,7 +22,7 @@ table fato_prescricao
 
 		annotation SummarizationSetBy = Automatic
 
-	column sk_paciente
+	column sk_patient
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -33,7 +33,7 @@ table fato_prescricao
 
 		annotation SummarizationSetBy = Automatic
 
-	column sk_medicamento
+	column sk_medication
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -44,7 +44,7 @@ table fato_prescricao
 
 		annotation SummarizationSetBy = Automatic
 
-	column data_key
+	column date_key
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -55,7 +55,7 @@ table fato_prescricao
 
 		annotation SummarizationSetBy = Automatic
 
-	column sequencia
+	column sequence
 		dataType: int64
 		formatString: 0
 		lineageTag: bbfaf429-4280-46d6-8c5a-f5f1fd1081b4
@@ -65,7 +65,7 @@ table fato_prescricao
 
 		annotation SummarizationSetBy = Automatic
 
-	column quantidade
+	column quantity
 		dataType: double
 		lineageTag: 69a95049-fab7-40e3-8c7f-b7d5c38a2905
 		sourceLineageTag: quantidade
@@ -76,7 +76,7 @@ table fato_prescricao
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column posologia
+	column dosage
 		dataType: string
 		lineageTag: fd5137bb-93c9-4cd7-a12e-b401943d6aea
 		sourceLineageTag: posologia
@@ -85,7 +85,7 @@ table fato_prescricao
 
 		annotation SummarizationSetBy = Automatic
 
-	column duracao
+	column duration
 		dataType: string
 		lineageTag: 40b37eaa-cb35-4ccd-bc3c-ba0182ebaa0f
 		sourceLineageTag: duracao
@@ -94,7 +94,7 @@ table fato_prescricao
 
 		annotation SummarizationSetBy = Automatic
 
-	column via
+	column route
 		dataType: string
 		lineageTag: 0202da22-3aa0-46de-9bd5-7000cc1ccc9b
 		sourceLineageTag: via
@@ -103,7 +103,7 @@ table fato_prescricao
 
 		annotation SummarizationSetBy = Automatic
 
-	column unidades_por_dose
+	column units_per_dose
 		dataType: double
 		lineageTag: 3ada1171-07d5-46ba-8da1-8b30b40c730d
 		sourceLineageTag: unidades_por_dose
@@ -114,7 +114,7 @@ table fato_prescricao
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column custo_estimado
+	column estimated_cost
 		dataType: double
 		lineageTag: 9699e015-dabd-45f6-a418-8a5a7acd977e
 		sourceLineageTag: custo_estimado
@@ -125,7 +125,7 @@ table fato_prescricao
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
-	column _data_carga_gold
+	column _gold_load_date
 		dataType: dateTime
 		isHidden
 		formatString: General Date

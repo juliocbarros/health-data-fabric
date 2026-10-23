@@ -1,8 +1,8 @@
-table fato_agendamento
+table fact_appointment
 	lineageTag: efcc92c3-1549-4160-b0eb-6eb54cca73e5
 	sourceLineageTag: [Gold].[fato_agendamento]
 
-	column num_agendamento
+	column appointment_number
 		dataType: string
 		lineageTag: 1c5dfbbd-c921-4c9a-9ec8-b0dfbc261a8d
 		sourceLineageTag: num_agendamento
@@ -11,7 +11,7 @@ table fato_agendamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column sk_paciente
+	column sk_patient
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -22,7 +22,7 @@ table fato_agendamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column sk_medico
+	column sk_doctor
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -33,7 +33,7 @@ table fato_agendamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column sk_atendente
+	column sk_attendant
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -44,7 +44,7 @@ table fato_agendamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column data_agendamento_key
+	column appointment_date_key
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -55,7 +55,7 @@ table fato_agendamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column data_hora_agendamento
+	column appointment_datetime
 		dataType: dateTime
 		formatString: General Date
 		lineageTag: f149cd8c-f6da-4e07-bc57-e67fcefcf342
@@ -65,7 +65,7 @@ table fato_agendamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column tipo
+	column type
 		dataType: string
 		lineageTag: 76e0dce0-8c29-42fa-8671-7a25cbe0ce1b
 		sourceLineageTag: tipo
@@ -83,7 +83,7 @@ table fato_agendamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column compareceu
+	column attended
 		dataType: int64
 		formatString: 0
 		lineageTag: d93c3e88-5f2c-4b0f-88b0-c1f1379e96c9
@@ -93,7 +93,7 @@ table fato_agendamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column cancelado
+	column cancelled
 		dataType: int64
 		formatString: 0
 		lineageTag: 30bf1c49-a6af-4762-8039-25490c09a137
@@ -103,7 +103,7 @@ table fato_agendamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column faltou
+	column no_show
 		dataType: int64
 		formatString: 0
 		lineageTag: f3712066-ce02-4f10-b92c-ac5d619298bf
@@ -113,7 +113,7 @@ table fato_agendamento
 
 		annotation SummarizationSetBy = Automatic
 
-	column _data_carga_gold
+	column _gold_load_date
 		dataType: dateTime
 		isHidden
 		formatString: General Date
@@ -123,6 +123,12 @@ table fato_agendamento
 		sourceColumn: _data_carga_gold
 
 		annotation SummarizationSetBy = Automatic
+
+	column status_description
+		dataType: string
+		lineageTag: 4d129575-5007-4df8-a0c8-48aeec32a5bf
+		summarizeBy: none
+		sourceColumn: status_descricao
 
 	partition fato_agendamento = entity
 		mode: directLake
