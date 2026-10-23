@@ -4,10 +4,10 @@
   "position": {
     "x": 1272,
     "y": 686,
-    "z": 13003,
+    "z": 16000,
     "height": 384,
     "width": 645,
-    "tabOrder": 13002
+    "tabOrder": 15000
   },
   "visual": {
     "visualType": "cardVisual",
@@ -20,14 +20,14 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Medidas"
+                      "Entity": "_Measures"
                     }
                   },
-                  "Property": "% Faturas Negadas pelo Seguro"
+                  "Property": "% Invoices Denied by Insurance"
                 }
               },
-              "queryRef": "Medidas.% Faturas Negadas pelo Seguro",
-              "nativeQueryRef": "% Faturas Negadas pelo Seguro"
+              "queryRef": "_Measures.% Invoices Denied by Insurance",
+              "nativeQueryRef": "% Invoices Denied by Insurance"
             }
           ]
         }
@@ -39,10 +39,10 @@
               "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Medidas"
+                    "Entity": "_Measures"
                   }
                 },
-                "Property": "% Faturas Negadas pelo Seguro"
+                "Property": "% Invoices Denied by Insurance"
               }
             },
             "direction": "Descending"
@@ -204,10 +204,10 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Medidas"
+                      "Entity": "_Measures"
                     }
                   },
-                  "Property": "Status Faturas Negadas"
+                  "Property": "Denied Invoices Status"
                 }
               }
             }
@@ -220,7 +220,7 @@
                 }
               }
             ],
-            "metadata": "Medidas.% Faturas Negadas pelo Seguro",
+            "metadata": "_Measures.% Invoices Denied by Insurance",
             "id": "field-3448cfe6-e1fa-f6cb-6e21-429d55a29d9b",
             "order": 0
           }
@@ -232,10 +232,10 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Medidas"
+                      "Entity": "_Measures"
                     }
                   },
-                  "Property": "Ticket Médio Texto"
+                  "Property": "Average Ticket Label"
                 }
               }
             }
@@ -248,7 +248,7 @@
                 }
               }
             ],
-            "metadata": "Medidas.% Faturas Negadas pelo Seguro",
+            "metadata": "_Measures.% Invoices Denied by Insurance",
             "id": "field-7f66676b-64ff-2923-9f5a-4e4b94bc88a9",
             "order": 1
           }
@@ -266,7 +266,7 @@
             }
           },
           "selector": {
-            "metadata": "Medidas.% Faturas Negadas pelo Seguro"
+            "metadata": "_Measures.% Invoices Denied by Insurance"
           }
         }
       ],
@@ -286,7 +286,7 @@
             }
           },
           "selector": {
-            "metadata": "Medidas.% Faturas Negadas pelo Seguro",
+            "metadata": "_Measures.% Invoices Denied by Insurance",
             "id": "field-3448cfe6-e1fa-f6cb-6e21-429d55a29d9b"
           }
         },
@@ -312,7 +312,7 @@
             }
           },
           "selector": {
-            "metadata": "Medidas.% Faturas Negadas pelo Seguro",
+            "metadata": "_Measures.% Invoices Denied by Insurance",
             "id": "field-7f66676b-64ff-2923-9f5a-4e4b94bc88a9"
           }
         }
@@ -325,7 +325,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Faturas negadas pelo seguro'"
+                  "Value": "'Invoices denied by insurance'"
                 }
               }
             },
@@ -359,7 +359,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'% do total de faturas'"
+                  "Value": "'% of all invoices'"
                 }
               }
             },

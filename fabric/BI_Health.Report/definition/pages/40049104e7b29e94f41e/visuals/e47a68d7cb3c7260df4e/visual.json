@@ -20,14 +20,14 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Medidas"
+                      "Entity": "_Measures"
                     }
                   },
-                  "Property": "Valor Faturado"
+                  "Property": "Billed Amount"
                 }
               },
-              "queryRef": "Medidas.Valor Faturado",
-              "nativeQueryRef": "Valor Faturado"
+              "queryRef": "_Measures.Billed Amount",
+              "nativeQueryRef": "Billed Amount"
             }
           ]
         }
@@ -39,10 +39,10 @@
               "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Medidas"
+                    "Entity": "_Measures"
                   }
                 },
-                "Property": "Valor Faturado"
+                "Property": "Billed Amount"
               }
             },
             "direction": "Descending"
@@ -175,7 +175,7 @@
             }
           },
           "selector": {
-            "metadata": "Medidas.Diagnósticos"
+            "metadata": "_Measures.Diagnoses"
           }
         },
         {
@@ -196,7 +196,7 @@
             }
           },
           "selector": {
-            "metadata": "Medidas.Valor Faturado"
+            "metadata": "_Measures.Billed Amount"
           }
         }
       ]

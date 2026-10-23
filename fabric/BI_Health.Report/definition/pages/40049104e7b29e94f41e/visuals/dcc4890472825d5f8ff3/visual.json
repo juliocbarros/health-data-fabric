@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fato_visita"
+                      "Entity": "fact_visit"
                     }
                   },
-                  "Property": "origem_descricao"
+                  "Property": "source_description"
                 }
               },
-              "queryRef": "fato_visita.origem_descricao",
-              "nativeQueryRef": "origem_descricao",
+              "queryRef": "fact_visit.source_description",
+              "nativeQueryRef": "source_description",
               "active": true
             }
           ]
@@ -39,14 +39,14 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Medidas"
+                      "Entity": "_Measures"
                     }
                   },
-                  "Property": "Visitas"
+                  "Property": "Visits"
                 }
               },
-              "queryRef": "Medidas.Visitas",
-              "nativeQueryRef": "Visitas"
+              "queryRef": "_Measures.Visits",
+              "nativeQueryRef": "Visits"
             }
           ]
         }
@@ -58,10 +58,10 @@
               "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Medidas"
+                    "Entity": "_Measures"
                   }
                 },
-                "Property": "Visitas"
+                "Property": "Visits"
               }
             },
             "direction": "Descending"
@@ -98,38 +98,48 @@
         }
       ]
     },
-    "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "2236a0eb4b944b08a0da",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "Medidas"
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Visits by source'"
+                }
               }
             },
-            "Property": "Visitas"
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
           }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "52f8fe29e30fe2b7ef3b",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "fato_visita"
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'E and W: walk-in visits with no prior appointment'"
+                }
               }
             },
-            "Property": "origem_descricao"
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            }
           }
-        },
-        "type": "Categorical"
-      }
-    ]
+        }
+      ]
+    }
   }
 }

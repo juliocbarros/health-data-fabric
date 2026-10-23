@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "dim_calendario"
+                      "Entity": "dim_calendar"
                     }
                   },
-                  "Property": "nome_mes"
+                  "Property": "month_year"
                 }
               },
-              "queryRef": "dim_calendario.nome_mes",
-              "nativeQueryRef": "nome_mes",
+              "queryRef": "dim_calendar.month_year",
+              "nativeQueryRef": "month_year",
               "active": true
             }
           ]
@@ -39,28 +39,28 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Medidas"
+                      "Entity": "_Measures"
                     }
                   },
-                  "Property": "Valor Faturado"
+                  "Property": "Billed Amount"
                 }
               },
-              "queryRef": "Medidas.Valor Faturado",
-              "nativeQueryRef": "Valor Faturado"
+              "queryRef": "_Measures.Billed Amount",
+              "nativeQueryRef": "Billed Amount"
             },
             {
               "field": {
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Medidas"
+                      "Entity": "_Measures"
                     }
                   },
-                  "Property": "Valor Recebido"
+                  "Property": "Amount Received"
                 }
               },
-              "queryRef": "Medidas.Valor Recebido",
-              "nativeQueryRef": "Valor Recebido"
+              "queryRef": "_Measures.Amount Received",
+              "nativeQueryRef": "Amount Received"
             }
           ]
         }
@@ -84,7 +84,7 @@
             }
           },
           "selector": {
-            "metadata": "Medidas.Valor Recebido"
+            "metadata": "_Measures.Amount Received"
           }
         }
       ],
@@ -135,7 +135,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Valor Faturado e Valor Recebido'"
+                  "Value": "'Billed vs. Received Amount'"
                 }
               }
             }
@@ -148,7 +148,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Faturado pela data de emissao/Recebido pela data de pagamento'"
+                  "Value": "'Billed by issue date · received by payment date'"
                 }
               }
             }

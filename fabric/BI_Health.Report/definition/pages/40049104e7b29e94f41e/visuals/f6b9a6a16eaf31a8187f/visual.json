@@ -20,14 +20,14 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Medidas"
+                      "Entity": "_Measures"
                     }
                   },
-                  "Property": "Valor Recebido"
+                  "Property": "Amount Received"
                 }
               },
-              "queryRef": "Medidas.Valor Recebido",
-              "nativeQueryRef": "Valor Recebido"
+              "queryRef": "_Measures.Amount Received",
+              "nativeQueryRef": "Amount Received"
             }
           ]
         }
@@ -39,10 +39,10 @@
               "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Medidas"
+                    "Entity": "_Measures"
                   }
                 },
-                "Property": "Valor Recebido"
+                "Property": "Amount Received"
               }
             },
             "direction": "Descending"
@@ -175,7 +175,7 @@
             }
           },
           "selector": {
-            "metadata": "Medidas.Diagnósticos"
+            "metadata": "_Measures.Diagnoses"
           }
         }
       ]

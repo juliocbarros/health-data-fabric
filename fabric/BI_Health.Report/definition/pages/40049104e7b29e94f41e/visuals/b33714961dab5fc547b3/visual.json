@@ -20,14 +20,14 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Medidas"
+                      "Entity": "_Measures"
                     }
                   },
-                  "Property": "Visitas"
+                  "Property": "Visits"
                 }
               },
-              "queryRef": "Medidas.Visitas",
-              "nativeQueryRef": "Visitas"
+              "queryRef": "_Measures.Visits",
+              "nativeQueryRef": "Visits"
             }
           ]
         }
@@ -39,10 +39,10 @@
               "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Medidas"
+                    "Entity": "_Measures"
                   }
                 },
-                "Property": "Visitas"
+                "Property": "Visits"
               }
             },
             "direction": "Descending"
@@ -92,7 +92,7 @@
             }
           },
           "selector": {
-            "metadata": "Medidas.Visitas"
+            "metadata": "_Measures.Visits"
           }
         }
       ],

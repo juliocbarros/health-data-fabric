@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "dim_calendario"
+                      "Entity": "dim_calendar"
                     }
                   },
-                  "Property": "ano"
+                  "Property": "year"
                 }
               },
-              "queryRef": "dim_calendario.ano",
-              "nativeQueryRef": "ano",
+              "queryRef": "dim_calendar.year",
+              "nativeQueryRef": "year",
               "active": true
             }
           ]
@@ -54,7 +54,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Ano'"
+                  "Value": "'Year'"
                 }
               }
             }

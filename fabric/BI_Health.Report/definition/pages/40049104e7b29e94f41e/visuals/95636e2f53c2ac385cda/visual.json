@@ -20,14 +20,14 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Medidas"
+                      "Entity": "_Measures"
                     }
                   },
-                  "Property": "Pacientes Atendidos"
+                  "Property": "Patients Seen"
                 }
               },
-              "queryRef": "Medidas.Pacientes Atendidos",
-              "nativeQueryRef": "Pacientes Atendidos"
+              "queryRef": "_Measures.Patients Seen",
+              "nativeQueryRef": "Patients Seen"
             }
           ]
         }
@@ -39,10 +39,10 @@
               "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Medidas"
+                    "Entity": "_Measures"
                   }
                 },
-                "Property": "Pacientes Atendidos"
+                "Property": "Patients Seen"
               }
             },
             "direction": "Descending"
@@ -175,7 +175,7 @@
             }
           },
           "selector": {
-            "metadata": "Medidas.Diagnósticos"
+            "metadata": "_Measures.Diagnoses"
           }
         },
         {
@@ -196,7 +196,7 @@
             }
           },
           "selector": {
-            "metadata": "Medidas.Pacientes Atendidos"
+            "metadata": "_Measures.Patients Seen"
           }
         }
       ]

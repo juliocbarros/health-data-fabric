@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Visão Geral",
+                    "value": "Overview",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "20pt",
@@ -31,7 +31,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Principais Indicadores de Atendimento e Faturamento.",
+                    "value": "Key care and billing indicators.",
                     "textStyle": {
                       "fontSize": "10pt",
                       "color": "#52514e"
@@ -59,8 +59,9 @@
               "solid": {
                 "color": {
                   "expr": {
-                    "Literal": {
-                      "Value": "'#F4F4F2'"
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.1
                     }
                   }
                 }

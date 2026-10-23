@@ -20,14 +20,14 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Medidas"
+                      "Entity": "_Measures"
                     }
                   },
-                  "Property": "Permanência Média (dias)"
+                  "Property": "Avg Length of Stay (days)"
                 }
               },
-              "queryRef": "Medidas.Permanência Média (dias)",
-              "nativeQueryRef": "Permanência Média (dias)"
+              "queryRef": "_Measures.Avg Length of Stay (days)",
+              "nativeQueryRef": "Avg Length of Stay (days)"
             }
           ]
         }
@@ -39,10 +39,10 @@
               "Measure": {
                 "Expression": {
                   "SourceRef": {
-                    "Entity": "Medidas"
+                    "Entity": "_Measures"
                   }
                 },
-                "Property": "Permanência Média (dias)"
+                "Property": "Avg Length of Stay (days)"
               }
             },
             "direction": "Descending"
@@ -175,7 +175,7 @@
             }
           },
           "selector": {
-            "metadata": "Medidas.Diagnósticos"
+            "metadata": "_Measures.Diagnoses"
           }
         }
       ]

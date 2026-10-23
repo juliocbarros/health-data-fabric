@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "dim_calendario"
+                      "Entity": "dim_calendar"
                     }
                   },
-                  "Property": "nome_mes"
+                  "Property": "month_year"
                 }
               },
-              "queryRef": "dim_calendario.nome_mes",
-              "nativeQueryRef": "nome_mes",
+              "queryRef": "dim_calendar.month_year",
+              "nativeQueryRef": "month_year",
               "active": true
             }
           ]
@@ -39,14 +39,14 @@
                 "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Medidas"
+                      "Entity": "_Measures"
                     }
                   },
-                  "Property": "Visitas"
+                  "Property": "Visits"
                 }
               },
-              "queryRef": "Medidas.Visitas",
-              "nativeQueryRef": "Visitas"
+              "queryRef": "_Measures.Visits",
+              "nativeQueryRef": "Visits"
             }
           ]
         }
@@ -113,7 +113,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Visistas por Mes'"
+                  "Value": "'Visits by Month'"
                 }
               }
             }
@@ -126,7 +126,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Pela data da visita · set/25 vai até 27/09'"
+                  "Value": "'By visit date · Sep/25 runs through 09/27'"
                 }
               }
             }
@@ -145,13 +145,14 @@
           "Column": {
             "Expression": {
               "SourceRef": {
-                "Entity": "dim_calendario"
+                "Entity": "dim_calendar"
               }
             },
-            "Property": "nome_mes"
+            "Property": "month_name"
           }
         },
-        "type": "Categorical"
+        "type": "Categorical",
+        "howCreated": "User"
       },
       {
         "name": "426ec168c3ecbe3efa07",
@@ -160,10 +161,10 @@
           "Measure": {
             "Expression": {
               "SourceRef": {
-                "Entity": "Medidas"
+                "Entity": "_Measures"
               }
             },
-            "Property": "Visitas"
+            "Property": "Visits"
           }
         },
         "type": "Advanced"

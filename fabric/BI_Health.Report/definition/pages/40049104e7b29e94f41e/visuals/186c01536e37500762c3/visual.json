@@ -20,14 +20,14 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "fato_visita"
+                      "Entity": "fact_visit"
                     }
                   },
-                  "Property": "tipo"
+                  "Property": "type"
                 }
               },
-              "queryRef": "fato_visita.tipo",
-              "nativeQueryRef": "tipo",
+              "queryRef": "fact_visit.type",
+              "nativeQueryRef": "type",
               "active": true
             }
           ]
@@ -54,7 +54,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Tipo de Visita'"
+                  "Value": "'Visit Type'"
                 }
               }
             }

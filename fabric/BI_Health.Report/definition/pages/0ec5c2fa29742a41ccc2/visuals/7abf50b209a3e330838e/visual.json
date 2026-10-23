@@ -4,10 +4,10 @@
   "position": {
     "x": 0,
     "y": 0,
-    "z": 1,
+    "z": 1000,
     "height": 110,
     "width": 240,
-    "tabOrder": 1
+    "tabOrder": 1000
   },
   "visual": {
     "visualType": "textbox",
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Painel Hospitalar",
+                    "value": "Hospital Dashboard",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "14pt",
