@@ -4,10 +4,10 @@
   "position": {
     "x": 288,
     "y": 256,
-    "z": 10001,
+    "z": 11000,
     "height": 368,
     "width": 800,
-    "tabOrder": 10001
+    "tabOrder": 11000
   },
   "visual": {
     "visualType": "columnChart",
@@ -299,65 +299,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "3935eb3aa11c29b4a3b6",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Completed Appointments"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "ea4838d6047564bb0fb4",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "No-Shows"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "ca2c73358be72c88bf7a",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Cancellations"
-          }
-        },
-        "type": "Advanced"
-      },
-      {
-        "name": "1c9698119daf454d0acf",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "_Measures"
-              }
-            },
-            "Property": "Upcoming Appointments"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

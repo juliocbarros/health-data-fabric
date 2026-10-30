@@ -246,10 +246,10 @@ agd = s("appt").select(
     F.col("ATYPE_DES").alias("tipo"),
     F.col("ASTAT_DES").alias("status"),
     F.when(F.col("ASTAT_DES") == "Completed", "Completed")
-     .when(F.col("ASTAT_DES") == "No show", "No show")
+     .when(F.col("ASTAT_DES") == "No show", "No-show")
      .when(F.col("ASTAT_DES") == "Cancelled", "Cancelled")
-     .when(F.col("ASTAT_DES") == "In Future", "Futuro")
-     .otherwise("Não informado").alias("status_descricao"),
+     .when(F.col("ASTAT_DES") == "In Future", "Upcoming")
+     .otherwise(NI).alias("status_descricao"),
     (F.col("ASTAT_DES") == "Completed").cast("int").alias("compareceu"),
     (F.col("ASTAT_DES") == "Cancelled").cast("int").alias("cancelado"),
     (F.col("ASTAT_DES") == "No show").cast("int").alias("faltou"))
@@ -273,7 +273,7 @@ vis = s("vist").select(
     F.when(F.col("REFR_ORIGEM") == "AGENDAMENTO", "Scheduled")
      .when(F.col("REFR_ORIGEM") == "E", "Walk-in (E)")
      .when(F.col("REFR_ORIGEM") == "W", "Walk-in (W)")
-     .otherwise("Não informado").alias("Unknown"),
+     .otherwise(NI).alias("origem_descricao"),
     F.col("REFR_DUPLICADO").alias("num_visita_repetido"))
 gravar(vis, "fato_visita")
 
@@ -357,7 +357,7 @@ pag = s("pmnt").select(
     sk("REFR_NO", "PAT_ID", "BTYPE_CD").alias("sk_fatura"),
     sk("REFR_NO", "PAT_ID").alias("sk_visita"), sk("PAT_ID").alias("sk_paciente"),
     data_key("PMNT_DATE").alias("data_pagamento_key"),
-    F.when(F.col("BTYPE_CD") == "RG", "Atendimento").otherwise("Medicamentos").alias("tipo_fatura"),
+    F.when(F.col("BTYPE_CD") == "RG", "Services").otherwise("Medications").alias("tipo_fatura"),
     F.col("PMNT_NO").alias("parcela"), F.col("PMNT_TMS").alias("total_parcelas"),
     F.col("TOT_PMNT").alias("valor_total_paciente"), F.col("PMNT_AMT").alias("valor_parcela"),
     F.col("METH_DES").alias("meio_pagamento"), F.col("PSTAT_DES").alias("status"))

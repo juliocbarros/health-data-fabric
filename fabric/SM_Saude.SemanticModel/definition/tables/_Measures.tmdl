@@ -277,6 +277,25 @@ table _Measures
 		displayFolder: Financial
 		lineageTag: 62ef779e-ffeb-46f3-b9cd-fa069709d571
 
+	/// Appointments whose doctor is registered in a non-clinical department (IT). Data quality check.
+	measure 'Appointments with Non-Clinical Doctor' = CALCULATE ( [Appointments], dim_staff[department] = "IT" )
+		formatString: #,0
+		displayFolder: Appointments
+		lineageTag: 9ad88f52-5718-424f-9c84-e3fb5be64e88
+
+	/// Alert text for the data quality card.
+	measure 'Data Quality Status' =
+			VAR n = CALCULATE ( DISTINCTCOUNT ( fact_appointment[sk_doctor] ), dim_staff[department] = "IT" )
+			RETURN
+			    IF ( n > 0, "⚠ Check · " & n & " doctor(s) assigned to IT", "✓ No issues found" )
+		displayFolder: Appointments
+		lineageTag: 22d5693c-3c92-41a0-bc5f-3fd1a647fa34
+
+	/// Explanation line for the data quality card.
+	measure 'Data Quality Note' = "Appointments booked with a doctor registered in the IT department. Review the source in STG_EHP_STFF."
+		displayFolder: Appointments
+		lineageTag: 17ba9f01-bde8-437d-8069-6c9bcf2e43ff
+
 	column x
 		isHidden
 		isNameInferred
