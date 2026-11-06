@@ -30,7 +30,7 @@
           "sink": {
             "type": "BinarySink",
             "storeSettings": {
-              "type": "LakehouseWriteSettings"
+              "type": "AzureBlobStorageWriteSettings"
             },
             "datasetSettings": {
               "type": "Binary",
@@ -68,14 +68,7 @@
           "secureOutput": false
         },
         "name": "Copy data_Load_CSV",
-        "dependsOn": [
-          {
-            "activity": "Invoke pipeline1",
-            "dependencyConditions": [
-              "Completed"
-            ]
-          }
-        ]
+        "dependsOn": []
       },
       {
         "type": "TridentNotebook",
@@ -145,28 +138,6 @@
             ]
           }
         ]
-      },
-      {
-        "type": "InvokePipeline",
-        "typeProperties": {
-          "parameters": {},
-          "waitOnCompletion": true,
-          "workspaceId": "813256b7-a384-41b0-8ede-0d1496651372",
-          "pipelineId": "da7fe5b9-df95-47d5-910c-6d50cde94e0b",
-          "operationType": "InvokeFabricPipeline"
-        },
-        "externalReferences": {
-          "connection": "b9788bcf-448b-497e-9aa0-be40ff31be55"
-        },
-        "policy": {
-          "timeout": "0.12:00:00",
-          "retry": 0,
-          "retryIntervalInSeconds": 30,
-          "secureInput": false,
-          "secureOutput": false
-        },
-        "name": "Invoke pipeline1",
-        "dependsOn": []
       }
     ]
   }
