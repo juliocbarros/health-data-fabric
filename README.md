@@ -57,12 +57,12 @@
 
 ```mermaid
 flowchart LR
-    A[(File server<br/>STG_EHP__*.csv)] -->|Copy activity| B[Lakehouse<br/>Files/Raw]
-    B -->|Nb carga bronze| C[(Bronze<br/>Delta · string)]
-    C -->|NB_Silver| D[(Silver<br/>typed · cleansed)]
-    D -->|NB_Gold| E[(Gold<br/>star schema)]
-    E -->|Direct Lake| F[SM_Saude<br/>Semantic Model]
-    F --> G[BI_Health<br/>Power BI Report]
+    A[("File server<br/>STG_EHP__ CSV files")] -->|Copy activity| B["Lakehouse<br/>Files/Raw"]
+    B -->|Nb carga bronze| C[("Bronze<br/>Delta, all strings")]
+    C -->|NB_Silver| D[("Silver<br/>typed and cleansed")]
+    D -->|NB_Gold| E[("Gold<br/>star schema")]
+    E -->|Direct Lake| F["SM_Saude<br/>Semantic Model"]
+    F --> G["BI_Health<br/>Power BI Report"]
 
     style C fill:#fbf1e6,stroke:#e2b98c
     style D fill:#f1f3f5,stroke:#b9c1c8
